@@ -32,13 +32,19 @@ public class Human : MonoBehaviour
     {
         canMove = true;
 
-        int r = Random.Range(0,2);
-
-        if (r == 0)
+        if (_rigid.position.x < -23)
             dir = Vector2.right;
-        else
+        else if (_rigid.position.x > 23)
             dir = Vector2.left;
+        else
+        {
+            int r = Random.Range(0, 2);
 
+            if (r == 0)
+                dir = Vector2.right;
+            else
+                dir = Vector2.left;
+        }
         Invoke("CanMove", 5.0f);
     }
 
