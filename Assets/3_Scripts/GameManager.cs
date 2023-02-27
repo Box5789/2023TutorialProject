@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.VFX;
 
 [Serializable]
 enum GameState
@@ -17,10 +18,10 @@ enum GameState
 [Serializable]
 public class Request
 {
-    private int _color_Id;
+    [SerializeField] private int _color_Id;
     public int color_Id { get { return _color_Id; } set { if (value < 0) _color_Id = 0; else _color_Id = value; } }
 
-    private int _tag_Id;
+    [SerializeField] private int _tag_Id;
     public int tag_Id { get { return _tag_Id; } set { if (value < 0) _tag_Id = 0; else _tag_Id = value; } }
 
     public void Clear_Request()
@@ -65,9 +66,6 @@ public class FireCracker
     [SerializeField] private float _transparency;
     public float transparency { get { return _transparency; } set { if (value < 0) _transparency = 0; else _transparency = value; } }
 
-    [SerializeField] private bool _isGradation;
-    public bool isGradation { get { return _isGradation; } set { _isGradation = value; } }
-
     [SerializeField] private Blueprint _bp;
     public Blueprint bp { get { return _bp; } set { _bp = value; } }
 
@@ -77,7 +75,6 @@ public class FireCracker
         _color_Id1 = 0;
         _color_Id2 = 0;
         _transparency = 0.0f;
-        _isGradation = false;
         _bp.Clear_Blueprint();
     }
 
@@ -92,7 +89,7 @@ public class GameManager : MonoBehaviour
      */
 
     [Header("Data")]
-    [SerializeField] private GameState gameState;
+    [SerializeField] private GameState _gameState;
 
     [SerializeField] private FireCracker background_fireCracker;
     [SerializeField] private FireCracker crafted_fireCracker;
@@ -101,16 +98,41 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<Blueprint> blueprints_Database;
 
     [Header("Client")]
+    [SerializeField] private GameObject client_GO;
     [SerializeField] private SpriteRenderer client_SR;
     [SerializeField] private SpriteRenderer talk_Ballon_SR;
     [SerializeField] private TextMeshPro request_Text;
+
+
+    [Header("Fireworks")]
+    [SerializeField] private VisualEffect visualEffect;
 
     private void Awake()
     {
         init();
 
-        gameState = GameState.close;
+        _gameState = GameState.close;
 
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Open_Gapandae();
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            DisappearClient();
+            if (Check_At_Submit())
+            {
+                Debug.Log("Clear!! ");
+            }
+            else
+            {
+                Debug.Log("fail :( ");
+            }
+        }
     }
 
 
@@ -125,11 +147,11 @@ public class GameManager : MonoBehaviour
 
     public void Close_Gapandae()
     {
-        gameState = GameState.close;
+        _gameState = GameState.close;
     }
     public void Open_Gapandae()
     {
-        gameState = GameState.open_available;
+        _gameState = GameState.open_available;
 
         StartCoroutine(Open_UnderRequest());
     }
@@ -139,33 +161,67 @@ public class GameManager : MonoBehaviour
     private IEnumerator Open_UnderRequest()
     {
         yield return WFS_5sec;
-        gameState = GameState.open_underRequest;
+        _gameState = GameState.open_underRequest;
         AppearClient();
     }
 
     private void AppearClient()
     {
         //present_request set
-        StartCoroutine(Change_Transperency());
+        Set_Present_Request();
+        StartCoroutine(Change_Transperency(true));
     }
 
-    private void Set_Present_Request()
+    private void DisappearClient()
     {
-        present_request.color_Id = 0;
-        present_request.tag_Id = 0;
+        StartCoroutine(Change_Transperency(false));
     }
 
-    private IEnumerator Change_Transperency()
+    private void Set_Present_Request()  //random
+    {
+        present_request.color_Id = 1;
+        present_request.tag_Id = 3;
+    }
+
+    private IEnumerator Change_Transperency(bool isAppearing)
     {
         float time = 4.0f;
         float temp = 0.0f;
-        while (temp < time)
+
+        if (isAppearing)
         {
-            temp += Time.fixedDeltaTime;
-            // client_SR 
-            // talk_Ballon_SR 
-            yield return WFS_FDT;
+            client_GO.SetActive(true);
+
+            temp = 0.0f;
+            
+            while (temp < time)
+            {
+                temp += Time.fixedDeltaTime;
+                client_SR.color = new Color(1f, 1f, 1f, temp / time);
+                talk_Ballon_SR.color = new Color(1f, 1f, 1f, temp / time);
+                request_Text.color = new Color(1f, 1f, 1f, temp / time);
+
+                yield return WFS_FDT;
+            }
         }
+        else
+        {
+            temp = 4.0f;
+
+            while (temp > 0.0f)
+            {
+                temp -= Time.fixedDeltaTime;
+                client_SR.color = new Color(1f, 1f, 1f, temp / time);
+                talk_Ballon_SR.color = new Color(1f, 1f, 1f, temp / time);
+                request_Text.color = new Color(1f, 1f, 1f, temp / time);
+
+                yield return WFS_FDT;
+            }
+
+            client_GO.SetActive(false);
+        }
+
+        
     }
 
     #endregion
@@ -177,28 +233,14 @@ public class GameManager : MonoBehaviour
     {
         bool isMet = true;
 
-        if (crafted_fireCracker.isGradation)
+
+        if (present_request.color_Id == FindColor(crafted_fireCracker.color_Id1, crafted_fireCracker.color_Id2))
         {
-            if(crafted_fireCracker.color_Id1 == present_request.color_Id ||
-                crafted_fireCracker.color_Id2 == present_request.color_Id)
-            {
-                //색 맞추기 성공~
-            }
-            else
-            {
-                isMet = false;
-            }
+            //색 맞추기 성공~
         }
         else
         {
-            if(present_request.color_Id == FindColor(crafted_fireCracker.color_Id1, crafted_fireCracker.color_Id2))
-            {
-                //색 맞추기 성공~
-            }
-            else
-            {
-                isMet = false;
-            }
+            isMet = false;
         }
 
         bool isBreaked = false;
@@ -221,7 +263,6 @@ public class GameManager : MonoBehaviour
         }
         background_fireCracker = crafted_fireCracker;
         init();
-
 
         Open_Gapandae();
         return isMet;
