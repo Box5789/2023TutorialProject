@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -67,9 +68,6 @@ public class FireCracker
     [SerializeField] private bool _isGradation;
     public bool isGradation { get { return _isGradation; } set { _isGradation = value; } }
 
-    [SerializeField] private int _particle_Id;
-    public int particle_Id { get { return _particle_Id; } set { if (value < 0) _particle_Id = 0; else _particle_Id = value; } }
-
     [SerializeField] private Blueprint _bp;
     public Blueprint bp { get { return _bp; } set { _bp = value; } }
 
@@ -80,27 +78,10 @@ public class FireCracker
         _color_Id2 = 0;
         _transparency = 0.0f;
         _isGradation = false;
-        _particle_Id = 0;
         _bp.Clear_Blueprint();
     }
 
 }
-
-/*
- * 안녕하세요. ○○ 모양으로 만들어주세요. 참고로 제 행운의 컬러는 □□이에요. 
- * ○○ 모양으로 부탁드려요. 색은 □□이 좋겠네요. 
- * 날이 쌀쌀한데 고생 많으시네요! ○○ 모양의 □□ 폭죽 부탁드려요!
- * 아직 장사하시는 거죠? □□ ○○ 모양 폭죽 주세요. 
- * □□ ○○ 모양 폭죽을 만들어주세요. 잘 부탁드립니다. 
- * 저는 □□을 좋아해요. ○○ 모양도요. 아시겠죠?
- * □□의 ○○ 모양 폭죽 하나 주시겠어요? 그나저나 이곳은 정말 아름답네요... 
- * □□ ○○ 모양이요. 
- * 음... 종류가 되게 많네요. ○○ 모양으로 주세요. 색깔이요? 잠시만요. 어.. 뭐가 좋을까.. □□으로 해주세요. 
- * ○○ 모양 □□ 폭죽 하나요. 계좌이체 되죠?
- * 어이, □□ ○○모양 하나.
- * 
- * 
- */
 
 public class GameManager : MonoBehaviour
 {
@@ -108,9 +89,9 @@ public class GameManager : MonoBehaviour
      * 1. 설계도 줍줍버튼 활성화
      * 2. 게임 전체 상태 변경
      * 3. 
-     * 
-     * 
      */
+
+    [Header("Data")]
     [SerializeField] private GameState gameState;
 
     [SerializeField] private FireCracker background_fireCracker;
@@ -119,7 +100,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private List<Blueprint> blueprints_Database;
 
-
+    [Header("Client")]
+    [SerializeField] private SpriteRenderer client_SR;
+    [SerializeField] private SpriteRenderer talk_Ballon_SR;
+    [SerializeField] private TextMeshPro request_Text;
 
     private void Awake()
     {
@@ -129,20 +113,12 @@ public class GameManager : MonoBehaviour
 
     }
 
+
     private void init()
     {
         present_request.Clear_Request();
         crafted_fireCracker.Clear_FireCracker();
     }
-
-
-    private void FixedUpdate()
-    {
-
-
-    }
-
-
 
 
     #region open and close // Change State
@@ -155,27 +131,56 @@ public class GameManager : MonoBehaviour
     {
         gameState = GameState.open_available;
 
+        StartCoroutine(Open_UnderRequest());
     }
 
-    private void Open_UnderRequest()
+    WaitForSeconds WFS_5sec = new WaitForSeconds(5.0f);
+    WaitForSeconds WFS_FDT = new WaitForSeconds(0.02f);
+    private IEnumerator Open_UnderRequest()
     {
+        yield return WFS_5sec;
         gameState = GameState.open_underRequest;
+        AppearClient();
+    }
+
+    private void AppearClient()
+    {
+        //present_request set
+        StartCoroutine(Change_Transperency());
+    }
+
+    private void Set_Present_Request()
+    {
+        present_request.color_Id = 0;
+        present_request.tag_Id = 0;
+    }
+
+    private IEnumerator Change_Transperency()
+    {
+        float time = 4.0f;
+        float temp = 0.0f;
+        while (temp < time)
+        {
+            temp += Time.fixedDeltaTime;
+            // client_SR 
+            // talk_Ballon_SR 
+            yield return WFS_FDT;
+        }
     }
 
     #endregion
 
 
-
     #region request
 
-    public bool Check_At_Submit(Request request) 
+    public bool Check_At_Submit() 
     {
         bool isMet = true;
 
         if (crafted_fireCracker.isGradation)
         {
-            if(crafted_fireCracker.color_Id1 == request.color_Id ||
-                crafted_fireCracker.color_Id2 == request.color_Id)
+            if(crafted_fireCracker.color_Id1 == present_request.color_Id ||
+                crafted_fireCracker.color_Id2 == present_request.color_Id)
             {
                 //색 맞추기 성공~
             }
@@ -186,7 +191,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            if(request.color_Id == FindColor(crafted_fireCracker.color_Id1, crafted_fireCracker.color_Id2))
+            if(present_request.color_Id == FindColor(crafted_fireCracker.color_Id1, crafted_fireCracker.color_Id2))
             {
                 //색 맞추기 성공~
             }
@@ -199,7 +204,7 @@ public class GameManager : MonoBehaviour
         bool isBreaked = false;
         for (int i = 0; i < 5; i++)
         {
-            if (request.tag_Id == crafted_fireCracker.bp.tag_Id[i]) //tag
+            if (present_request.tag_Id == crafted_fireCracker.bp.tag_Id[i]) //tag
             {
                 isBreaked = true;
                 break;
@@ -214,11 +219,11 @@ public class GameManager : MonoBehaviour
         {
             isMet = false;
         }
-
-
         background_fireCracker = crafted_fireCracker;
         init();
 
+
+        Open_Gapandae();
         return isMet;
     }
 
