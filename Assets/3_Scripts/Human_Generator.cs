@@ -15,6 +15,14 @@ public class Human_Generator : MonoBehaviour
         Invoke("Generate_Human4", 7.0f);
     }
 
+    private void OnDisable()
+    {
+        CancelInvoke("Generate_Human1");
+        CancelInvoke("Generate_Human2");
+        CancelInvoke("Generate_Human3");
+        CancelInvoke("Generate_Human4");
+    }
+
     private void Generate_Human1()
     {
         Instantiate(human_Prefab, new Vector3(30.0f,0.0f,0.0f), Quaternion.Euler(Vector3.zero), transform);

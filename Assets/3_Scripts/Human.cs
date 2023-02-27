@@ -16,6 +16,10 @@ public class Human : MonoBehaviour
         Invoke("SetDirection", 1.0f);
         Invoke("Destroy_Self", 300.0f);
     }
+    private void OnDisable()
+    {
+        CancelInvoke("SetDirection");
+    }
 
     private void FixedUpdate()
     {
