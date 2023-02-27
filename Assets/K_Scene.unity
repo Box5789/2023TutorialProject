@@ -468,8 +468,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 103364c98dee98d428b3ca998fd413d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blueprints_Database: []
+  blueprints_Database:
+  - _print_Id: 0
+    _ishad: 0
+    _tag_Ids: 0000000000000000000000000000000000000000
+  - _print_Id: 0
+    _ishad: 0
+    _tag_Ids: 0000000000000000000000000000000000000000
+  - _print_Id: 0
+    _ishad: 0
+    _tag_Ids: 0000000000000000000000000000000000000000
+  - _print_Id: 0
+    _ishad: 0
+    _tag_Ids: 0000000000000000000000000000000000000000
+  - _print_Id: 0
+    _ishad: 0
+    _tag_Ids: 0000000000000000000000000000000000000000
+  - _print_Id: 0
+    _ishad: 0
+    _tag_Ids: 0000000000000000000000000000000000000000
+  - _print_Id: 0
+    _ishad: 0
+    _tag_Ids: 0000000000000000000000000000000000000000
+  - _print_Id: 0
+    _ishad: 0
+    _tag_Ids: 0000000000000000000000000000000000000000
+  - _print_Id: 0
+    _ishad: 0
+    _tag_Ids: 0000000000000000000000000000000000000000
+  - _print_Id: 0
+    _ishad: 0
+    _tag_Ids: 0000000000000000000000000000000000000000
   gameState: 0
+  present_fireCracker:
+    _color_Id1: 0
+    _color_Id2: 0
+    _transparency: 0
+    _isGradation: 0
+    _particle_Id: 0
+    _bp:
+      _print_Id: 0
+      _ishad: 0
+      _tag_Ids: 0000000000000000000000000000000000000000
 --- !u!1 &648502955
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,6 +1145,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
         type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
+        type: 3}
       propertyPath: m_PropertySheet.m_Int.m_Array.Array.data[0].m_Name
       value: Amount
       objectReference: {fileID: 0}
@@ -1135,6 +1180,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
         type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Name
+      value: Gradiant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
+        type: 3}
       propertyPath: m_PropertySheet.m_Int.m_Array.Array.data[0].m_Overridden
       value: 1
       objectReference: {fileID: 0}
@@ -1147,6 +1197,81 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Overridden
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Overridden
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.atime1
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.ctime0
+      value: 2699
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.ctime1
+      value: 5204
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.ctime2
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key0.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key0.b
+      value: 995.8902
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key0.g
+      value: 995.8902
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key0.r
+      value: 995.8902
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key1.b
+      value: 1276.6097
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key1.g
+      value: 17.052492
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key2.b
+      value: 0.5377358
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key2.r
+      value: 0.20168811
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.m_NumAlphaKeys
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.m_NumColorKeys
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 982f2b6f8df25e54988ea8ec027d3c36, type: 3}
