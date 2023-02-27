@@ -32,8 +32,8 @@ public class Blueprint
     private int _print_Id;
     public int print_Id { get { return _print_Id; } set { if (value < 0) _print_Id = 0; else _print_Id = value; } }
 
-    private int _tag_Id;
-    public int tag_Id { get { return _tag_Id; } set { if (value < 0) _tag_Id = 0; else _tag_Id = value; } }
+    private int[] _tag_Ids = new int[5];
+    public int[] tag_Id { get { return _tag_Ids; } set { _tag_Ids = value; } }
 
     private bool _ishad;
     public bool ishad { get { return _ishad; } set { _ishad = value; } }
