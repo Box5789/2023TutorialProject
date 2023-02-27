@@ -180,8 +180,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 229105633956226000}
-  audio:
-    audioSource: {fileID: 0}
+  audioOnFire: {fileID: 8300000, guid: fd07142d82714464d815f8d73f3cdca4, type: 3}
+  audioOnExplosion: {fileID: 8300000, guid: ec96733418390c1429b0e1ed6ae19b88, type: 3}
+  audioOnExplosion2: {fileID: 8300000, guid: f07cf811b3210524095ef6cd292d3fe7, type: 3}
   VisualEffect: {fileID: 4878460315055165315}
 --- !u!82 &229105633956226000
 AudioSource:
