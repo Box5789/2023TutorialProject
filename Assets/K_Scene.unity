@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.16604137, g: 0.17406607, b: 0.25279808, a: 1}
+  m_IndirectSpecularColor: {r: 0.15567315, g: 0.1531055, b: 0.18445635, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -468,12 +468,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 103364c98dee98d428b3ca998fd413d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameState: 0
+  _gameState: 0
   background_fireCracker:
     _color_Id1: 0
     _color_Id2: 0
     _transparency: 0
-    _isGradation: 0
     _bp:
       _print_Id: 0
       _ishad: 0
@@ -482,11 +481,13 @@ MonoBehaviour:
     _color_Id1: 0
     _color_Id2: 0
     _transparency: 0
-    _isGradation: 0
     _bp:
       _print_Id: 0
       _ishad: 0
       _tag_Ids: 0000000000000000000000000000000000000000
+  present_request:
+    _color_Id: 0
+    _tag_Id: 0
   blueprints_Database:
   - _print_Id: 0
     _ishad: 0
@@ -1582,6 +1583,11 @@ PrefabInstance:
     - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
         type: 3}
       propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.ctime2
+      value: 6168
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.ctime3
       value: 65535
       objectReference: {fileID: 0}
     - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
@@ -1607,22 +1613,27 @@ PrefabInstance:
     - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
         type: 3}
       propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key1.b
-      value: 1276.6097
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
         type: 3}
       propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key1.g
-      value: 17.052492
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
         type: 3}
       propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key2.b
-      value: 0.5377358
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
         type: 3}
       propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key2.r
-      value: 0.20168811
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key3.r
+      value: 1024
       objectReference: {fileID: 0}
     - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
         type: 3}
@@ -1632,7 +1643,7 @@ PrefabInstance:
     - target: {fileID: 1182702362001623391, guid: 982f2b6f8df25e54988ea8ec027d3c36,
         type: 3}
       propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.m_NumColorKeys
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 982f2b6f8df25e54988ea8ec027d3c36, type: 3}

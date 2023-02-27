@@ -123,7 +123,6 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            DisappearClient();
             if (Check_At_Submit())
             {
                 Debug.Log("Clear!! ");
@@ -134,8 +133,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
-
     private void init()
     {
         present_request.Clear_Request();
@@ -261,11 +258,35 @@ public class GameManager : MonoBehaviour
         {
             isMet = false;
         }
-        background_fireCracker = crafted_fireCracker;
+
+        background_fireCracker.color_Id1    = crafted_fireCracker.color_Id1;
+        background_fireCracker.color_Id2    = crafted_fireCracker.color_Id2;
+        background_fireCracker.transparency = crafted_fireCracker.transparency;
+        background_fireCracker.bp.ishad     = crafted_fireCracker.bp.ishad;
+        background_fireCracker.bp.print_Id  = crafted_fireCracker.bp.print_Id;
+        for (int i=0;i<5;i++)
+        {
+            background_fireCracker.bp.tag_Id[i] = crafted_fireCracker.bp.tag_Id[i];
+        }
+
+
         init();
 
         Open_Gapandae();
+
+        DisappearClient();
+        StartCoroutine(Apply_FireCracker());
+
+
         return isMet;
+    }
+
+    private IEnumerator Apply_FireCracker()
+    {
+        yield return WFS_5sec;
+
+        //visualEffect.SetFloat("");
+        //apply gktpyd~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     }
 
     private int FindColor(int i, int j)
