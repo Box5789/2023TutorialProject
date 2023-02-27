@@ -8,7 +8,7 @@ Assets/Plugins/Editor/JetBrains*
 # Visual Studio Code
 .vscode/
 
-.[Ll]ogs/
+[Ll]ogs/
 
 ### Unity ###
 [Ll]ibrary/
