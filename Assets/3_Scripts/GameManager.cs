@@ -10,9 +10,10 @@ using UnityEngine.VFX;
 [Serializable]
 enum GameState
 {
-    close = 0,
-    open_available = 1, //의뢰 가능한 상태   
-    open_underRequest = 2 //의뢰 받은 상태
+    close_First = 0,
+    close = 1,
+    open_available = 2, //의뢰 가능한 상태   
+    open_underRequest = 3 //의뢰 받은 상태
 }
 
 [Serializable]
@@ -34,24 +35,15 @@ public class Request
 [Serializable]
 public class Blueprint
 {
-    [SerializeField] private int _print_Id;
-    public int print_Id { get { return _print_Id; } set { if (value < 0) _print_Id = 0; else _print_Id = value; } }
-
     [SerializeField] private bool _ishad;
     public bool ishad { get { return _ishad; } set { _ishad = value; } }
 
+
+    [SerializeField] private int _print_Id;
+    public int print_Id { get { return _print_Id; } set { if (value < 0) _print_Id = 0; else _print_Id = value; } }
+
     [SerializeField] private int[] _tag_Ids = new int[5];
     public int[] tag_Id { get { return _tag_Ids; } set { _tag_Ids = value; } }
-
-    public void Clear_Blueprint()
-    {
-        _print_Id = 0;
-        _ishad = false;
-        for (int i=0;i<5;i++)
-        {
-            _tag_Ids[i] = 0;
-        }
-    }
 }
 
 [Serializable]
@@ -88,14 +80,14 @@ public class GameManager : MonoBehaviour
      * 3. 
      */
 
-    [Header("Data")]
-    [SerializeField] private GameState _gameState;
+    [Header("Player Inventory")]
+    [SerializeField] private int have_Gold = 0;
 
+    [Header("Data")]
+    [SerializeField] private GameState gameState;
     [SerializeField] private FireCracker background_FireCracker;
     public FireCracker crafted_FireCracker;
-
     [SerializeField] private Request present_Request;
-
     [SerializeField] private List<Blueprint> blueprints_Database;
 
     [Header("Client")]
@@ -116,8 +108,8 @@ public class GameManager : MonoBehaviour
     {
         init();
 
-        _gameState = GameState.close;
-        StartCoroutine(Make_Get_Blueprint_Event());
+        gameState = GameState.close_First;
+        StartCoroutine(Make_Get_Blueprint_Event()); // 한번만 돌아가야함
     }
 
     private void init()
@@ -125,22 +117,20 @@ public class GameManager : MonoBehaviour
         present_Request.Clear_Request();
         crafted_FireCracker.Clear_FireCracker();
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Open_Gapandae();
+            Close_Gapandae();
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            if (Check_At_Submit())
-            {
-                Debug.Log("Clear!! ");
-            }
-            else
-            {
-                Debug.Log("fail :( ");
-            }
+            Open_Gapandae();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Check_At_Submit();
         }
     }
     
@@ -149,12 +139,12 @@ public class GameManager : MonoBehaviour
 
     public void Close_Gapandae()
     {
-        _gameState = GameState.close;
+        gameState = GameState.close;
+        DisappearClient();
     }
     public void Open_Gapandae()
     {
-        _gameState = GameState.open_available;
-
+        gameState = GameState.open_available;
         StartCoroutine(Open_UnderRequest());
     }
 
@@ -163,7 +153,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator Open_UnderRequest()
     {
         yield return WFS_5sec;
-        _gameState = GameState.open_underRequest;
+        gameState = GameState.open_underRequest;
         AppearClient();
     }
 
@@ -181,10 +171,139 @@ public class GameManager : MonoBehaviour
 
     private void Set_Present_Request()  //random
     {
-        present_Request.color_Id = 1;
-        present_Request.tag_Id = 3;
+        present_Request.color_Id = UnityEngine.Random.Range(0,10);
+        present_Request.tag_Id = Get_Rand_Tag_Among_Have();
+
+        //여기서 text 적용
+        //request_Text.text = (present_Request.color_Id , present_Request.tag_Id);
     }
 
+    #endregion
+
+
+    #region Submit and Check
+    public void Check_At_Submit()
+    {
+        bool isMet = true;
+
+        //조건 : 조합된 색이든 포함이 되어있든 둘 중 하나만 만족하면 됨
+        if (present_Request.color_Id == Find_Color_Id(crafted_FireCracker.color_Id_1, crafted_FireCracker.color_Id_2) ||
+            present_Request.color_Id == crafted_FireCracker.color_Id_1 ||
+            present_Request.color_Id == crafted_FireCracker.color_Id_2)
+        {
+            //색 맞추기 성공~
+        }
+        else
+        {
+            isMet = false;
+        }
+
+        bool isThere = false;
+
+        isThere = Find_Tag_Id(present_Request.tag_Id, crafted_FireCracker.bp_Id);
+
+        if (isThere)
+        {
+            //태그 맞추기 성공~
+        }
+        else
+        {
+            isMet = false;
+        }
+
+        Copy_FireCracker(crafted_FireCracker, background_FireCracker);
+
+        init();
+
+        Open_Gapandae();
+        DisappearClient();
+        StartCoroutine(Apply_FireCracker());
+
+        if (isMet)
+        {
+            Debug.Log("만족 :(");
+            have_Gold++;
+        }
+        else
+        {
+            Debug.Log("불만족 :(");
+        }
+    }
+
+
+    public void Copy_FireCracker(FireCracker f_source, FireCracker f_target)
+    {
+        f_target.color_Id_1 = f_source.color_Id_1;
+        f_target.color_Id_2 = f_source.color_Id_2;
+        f_target.transparency = f_source.transparency;
+        f_target.bp_Id = f_source.bp_Id;
+    }
+    #endregion
+
+
+    #region blueprint 획득
+
+    private bool isExisted = false; 
+    private int eventUI_Id = -1;
+
+    public void Get_Blueprint() //UI에서 획득 버튼들이 공통으로 참조하는(add)
+    {
+        isExisted = false;
+        eventUI_Id = -1; // 없음.
+        Button_OnOff(isExisted);
+        Get_Rand_Print_Not_Have();
+    }
+
+    private void Get_Rand_Print_Not_Have()
+    {
+        List<int> temp = new List<int>();
+        int r;
+
+        for (int i = 0; i < 10; i++)
+        {
+            temp.Add(i);
+        }
+
+        do
+        {
+            r = UnityEngine.Random.Range(0, temp.Count);
+            temp.Remove(r);
+        } while (blueprints_Database[temp[r]].ishad);
+
+        blueprints_Database[temp[r]].ishad = true;
+    }
+
+    WaitForSeconds WFS_20sec = new WaitForSeconds(20.0f);
+    private IEnumerator Make_Get_Blueprint_Event()
+    {
+        if (Does_Have_All_BP())
+        {
+            Debug.Log("모든 도면을 가지고 있습니다.");
+            yield break;
+        }
+
+        yield return WFS_20sec;
+        while (true)
+        {
+            if (!isExisted)
+            {
+                isExisted = true;
+                eventUI_Id = UnityEngine.Random.Range(0, 5);
+                Button_OnOff(isExisted);
+            }
+            yield return WFS_20sec;
+        }
+    }
+
+    private void Button_OnOff(bool on)
+    {
+        buttons_GO[eventUI_Id].SetActive(on);
+    }
+
+    #endregion
+
+
+    #region Tools
     private IEnumerator Change_Transperency(bool isAppearing)
     {
         float time = 4.0f;
@@ -226,100 +345,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    #endregion
-
-
-    #region Submit and Check
-    public bool Check_At_Submit()
-    {
-        bool isMet = true;
-
-        //조건 : 조합된 색이든 포함이 되어있든 둘 중 하나만 만족하면 됨
-        if (present_Request.color_Id == FindColor_Id(crafted_FireCracker.color_Id_1, crafted_FireCracker.color_Id_2) ||
-            present_Request.color_Id == crafted_FireCracker.color_Id_1 ||
-            present_Request.color_Id == crafted_FireCracker.color_Id_2)
-        {
-            //색 맞추기 성공~
-        }
-        else
-        {
-            isMet = false;
-        }
-
-        bool isThere = false;
-
-        isThere = Find_Tag_Id(present_Request.tag_Id, crafted_FireCracker.bp_Id);
-
-        if (isThere)
-        {
-            //태그 맞추기 성공~
-        }
-        else
-        {
-            isMet = false;
-        }
-
-        Copy_FireCracker(crafted_FireCracker, background_FireCracker);
-
-        init();
-
-        Open_Gapandae();
-        DisappearClient();
-        StartCoroutine(Apply_FireCracker());
-
-
-        return isMet;
-    }
-
-
-    public void Copy_FireCracker(FireCracker f_source, FireCracker f_target)
-    {
-        f_target.color_Id_1 = f_source.color_Id_1;
-        f_target.color_Id_2 = f_source.color_Id_2;
-        f_target.transparency = f_source.transparency;
-        f_target.bp_Id = f_source.bp_Id;
-    }
-    #endregion
-
-
-    #region blueprint 획득
-
-    private bool isExisted = false; 
-    private int eventUI_Id = -1;
-
-    public void Get_Blueprint() //UI에서 획득 버튼들이 공통으로 참조하는(add)
-    {
-        isExisted = false;
-        eventUI_Id = -1; // 없음.
-        Button_OnOff(isExisted);
-    }
-    WaitForSeconds WFS_20sec = new WaitForSeconds(20.0f);
-    
-    private IEnumerator Make_Get_Blueprint_Event()
-    {
-        yield return WFS_20sec;
-        while (true)
-        {
-            if (!isExisted)
-            {
-                isExisted = true;
-                eventUI_Id = UnityEngine.Random.Range(0, 5); 
-                Button_OnOff(isExisted);
-            }
-            yield return WFS_20sec;
-        }
-    }
-
-    private void Button_OnOff(bool on)
-    {
-        buttons_GO[eventUI_Id].SetActive(on);
-    }
-
-    #endregion
-
-
-    #region Tools
-
     private IEnumerator Apply_FireCracker()
     {
         yield return WFS_5sec;
@@ -332,13 +357,13 @@ public class GameManager : MonoBehaviour
         GradientAlphaKey[] gak;
         g = new Gradient();
         gck = new GradientColorKey[4];
-        gck[0].color = FindColor(background_FireCracker.color_Id_1);
+        gck[0].color = Find_Color(background_FireCracker.color_Id_1);
         gck[0].time = 0.0F;
-        gck[1].color = FindColor(FindColor_Id(background_FireCracker.color_Id_1, background_FireCracker.color_Id_2));
+        gck[1].color = Find_Color(Find_Color_Id(background_FireCracker.color_Id_1, background_FireCracker.color_Id_2));
         gck[1].time = 0.1F;
-        gck[2].color = FindColor(FindColor_Id(background_FireCracker.color_Id_1, background_FireCracker.color_Id_2));
+        gck[2].color = Find_Color(Find_Color_Id(background_FireCracker.color_Id_1, background_FireCracker.color_Id_2));
         gck[2].time = 0.9F;
-        gck[3].color = FindColor(background_FireCracker.color_Id_2);
+        gck[3].color = Find_Color(background_FireCracker.color_Id_2);
         gck[3].time = 1.0F;
         gak = new GradientAlphaKey[2];
         gak[0].alpha = background_FireCracker.transparency;
@@ -352,6 +377,35 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private int Get_Rand_Tag_Among_Have()
+    {
+        List<Blueprint> temp = new List<Blueprint>();
+        int r1, r2;
+
+        for (int i = 0; i < blueprints_Database.Count; i++)
+        {
+            if (blueprints_Database[i].ishad)
+                temp.Add(blueprints_Database[i]);
+        }
+        r1 = UnityEngine.Random.Range(0, temp.Count);
+        r2 = UnityEngine.Random.Range(0, 5);
+        
+        return blueprints_Database[r1].tag_Id[r2];
+    }
+
+    private bool Does_Have_All_BP()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            if (blueprints_Database[i].ishad == false)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     private bool Find_Tag_Id(int tag_Id, int bp_Id)
     {
         for (int i=0;i< 5;i++)
@@ -363,8 +417,7 @@ public class GameManager : MonoBehaviour
         }
         return false;
     }
-
-    private int FindColor_Id(int i, int j)
+    private int Find_Color_Id(int i, int j)
     {
         /*
             0 : 빨
@@ -399,7 +452,7 @@ public class GameManager : MonoBehaviour
         return temp;
 
     }
-    private Color FindColor(int i)
+    private Color Find_Color(int i)
     {
         /*
             0 : 빨
