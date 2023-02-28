@@ -52,6 +52,7 @@ public class StringController : MonoBehaviour
                 ans += c;
             }
         }
+        ans = ans.Replace("\r", "");
         return ans;
     }
 

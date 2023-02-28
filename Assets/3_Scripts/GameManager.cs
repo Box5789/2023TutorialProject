@@ -1,10 +1,11 @@
+using Mono.Cecil;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using UnityEngine.VFX;
 
 [Serializable]
@@ -253,8 +254,8 @@ public class GameManager : MonoBehaviour
     public void Get_Blueprint() //UI에서 획득 버튼들이 공통으로 참조하는(add)
     {
         isExisted = false;
+        StartCoroutine(Button_OnOff(isExisted, eventUI_Id));
         eventUI_Id = -1; // 없음.
-        Button_OnOff(isExisted);
         Get_Rand_Print_Not_Have();
     }
 
@@ -263,7 +264,7 @@ public class GameManager : MonoBehaviour
         List<int> temp = new List<int>();
         int r;
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 8; i++)
         {
             temp.Add(i);
         }
@@ -271,8 +272,15 @@ public class GameManager : MonoBehaviour
         do
         {
             r = UnityEngine.Random.Range(0, temp.Count);
-            temp.Remove(r);
-        } while (blueprints_Database[temp[r]].ishad);
+            if (!blueprints_Database[temp[r]].ishad)
+            {
+                break;
+            }
+            else
+            {
+                temp.RemoveAt(r);
+            }
+        } while (temp.Count!=0);
 
         blueprints_Database[temp[r]].ishad = true;
     }
@@ -280,28 +288,54 @@ public class GameManager : MonoBehaviour
     WaitForSeconds WFS_20sec = new WaitForSeconds(20.0f);
     private IEnumerator Make_Get_Blueprint_Event()
     {
-        if (Does_Have_All_BP())
-        {
-            Debug.Log("모든 도면을 가지고 있습니다.");
-            yield break;
-        }
-
         yield return WFS_20sec;
         while (true)
         {
+            if (Does_Have_All_BP())
+            {
+                Debug.Log("모든 도면을 가지고 있습니다.");
+                yield break;
+            }
             if (!isExisted)
             {
                 isExisted = true;
                 eventUI_Id = UnityEngine.Random.Range(0, 5);
-                Button_OnOff(isExisted);
+                StartCoroutine(Button_OnOff(isExisted, eventUI_Id));
             }
             yield return WFS_20sec;
         }
     }
 
-    private void Button_OnOff(bool on)
+    private IEnumerator Button_OnOff(bool on, int index)
     {
-        buttons_GO[eventUI_Id].SetActive(on);
+        float time = 2.0f;
+        float temp = 0.0f;
+
+        Image image= buttons_GO[index].GetComponent<Image>();
+        
+        if (on)
+        {
+            buttons_GO[index].SetActive(on);
+            while (temp < time)
+            {
+                temp += Time.fixedDeltaTime;
+                image.color = new Color(1f, 1f, 1f, temp / time);
+                yield return WFS_FDT;
+            }
+        }
+        else
+        {
+            yield return WFS_FDT;
+            yield return WFS_FDT;
+            temp = 2.0f;
+            while (temp > 0.0f)
+            {
+                temp -= Time.fixedDeltaTime;
+                image.color = new Color(1f, 1f, 1f, temp / time);
+                yield return WFS_FDT;
+            }
+            buttons_GO[index].SetActive(on);
+        }
     }
 
     #endregion
@@ -324,7 +358,7 @@ public class GameManager : MonoBehaviour
                 temp += Time.fixedDeltaTime;
                 client_SR.color = new Color(1f, 1f, 1f, temp / time);
                 talk_Ballon_SR.color = new Color(1f, 1f, 1f, temp / time);
-                request_Text.color = new Color(1f, 1f, 1f, temp / time);
+                request_Text.color = new Color(0f, 0f, 0f, temp / time);
 
                 yield return WFS_FDT;
             }
@@ -338,7 +372,7 @@ public class GameManager : MonoBehaviour
                 temp -= Time.fixedDeltaTime;
                 client_SR.color = new Color(1f, 1f, 1f, temp / time);
                 talk_Ballon_SR.color = new Color(1f, 1f, 1f, temp / time);
-                request_Text.color = new Color(1f, 1f, 1f, temp / time);
+                request_Text.color = new Color(0f, 0f, 0f, temp / time);
 
                 yield return WFS_FDT;
             }
@@ -399,7 +433,7 @@ public class GameManager : MonoBehaviour
 
     private bool Does_Have_All_BP()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 8; i++)
         {
             if (blueprints_Database[i].ishad == false)
             {
@@ -409,6 +443,15 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
+    public bool[] Have_Bp()
+    {
+        bool[] b = new bool[8];
+        for (int i = 0; i < 8; i++)
+        {
+            b[i] = blueprints_Database[i].ishad;
+        }
+        return b;
+    }
 
     private bool Find_Tag_Id(int tag_Id, int bp_Id)
     {

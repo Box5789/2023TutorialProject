@@ -1,43 +1,70 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BlinkManager : MonoBehaviour
 {
-    float time;
+    
     Image image;
-    Color color;
-    bool flag;
     private void Start()
     {
-        time = 0;
+        //b = gameObject.GetComponent<Button>(); 
+        //colorBlock = b.colors;
+
         image = gameObject.GetComponent<Image>();
-        color = image.color;
-        flag = true;
+
+        
     }
-    IEnumerator TransparenceAnimation()
+
+
+    IEnumerator coroutine;
+    private void OnEnable()
     {
-        for(int i=1; i<=4; i++)
-        {
-            color.a = 1 - 0.1f * i;
-            gameObject.GetComponent<Image>().color = color;
-            yield return new WaitForSeconds(0.25f);
-        }
-        for(int i=3; i>=0; i--)
-        {
-            color.a = 1 - 0.1f * i;
-            gameObject.GetComponent<Image>().color = color;
-            yield return new WaitForSeconds(0.25f);
-        }
-        flag = true;
+        coroutine = Change_Transperency();
+        StartCoroutine(coroutine);
     }
-    void Update()
+
+    private WaitForSeconds WFS_FDT = new WaitForSeconds(0.02f);
+    private WaitForSeconds WFS_2sec = new WaitForSeconds(2.0f);
+
+    private IEnumerator Change_Transperency()
     {
-        if (flag)
+        yield return WFS_2sec;
+        yield return WFS_FDT;
+        yield return WFS_FDT;
+
+        float time = 1.0f;
+        float temp;
+        while (true) 
         {
-            flag = false;
-            StartCoroutine(TransparenceAnimation());
+            temp = 1.0f;
+            while (temp > 0.0f)
+            {
+                temp -= Time.fixedDeltaTime;
+                image.color = new Color(1f, 1f, 1f, temp / time * 0.6f + 0.4f);
+                yield return WFS_FDT;
+            }
+            temp = 0.0f;
+            while (temp < time)
+            {
+                temp += Time.fixedDeltaTime;
+                image.color = new Color(1f, 1f, 1f, temp / time * 0.6f + 0.4f);
+                yield return WFS_FDT;
+            }
         }
+
+    }
+
+    public void Stop_ThisCoroutine()
+    {   
+        if(coroutine != null)
+        {
+            image.color = new Color(1f, 1f, 1f, 1f);
+            StopCoroutine(coroutine);
+            coroutine = null;
+        }
+
     }
 }
