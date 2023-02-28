@@ -16,14 +16,17 @@ public class Firework : MonoBehaviour
 
     public VisualEffect VisualEffect;
 
-    private void Awake()
-    {
-        StartCoroutine(Firework1());
-    }
+    private bool Play;
 
+    private void OnEnable()
+    {
+        if(Play==false)
+            StartCoroutine(Firework1());
+    }
     IEnumerator Firework1()
     {
-        while (true)
+        Play = true;
+        while (Play)
         {
             yield return new WaitForSeconds(1/VisualEffect.GetFloat("Rate"));
             VisualEffect.SendEvent("OnPlay");
