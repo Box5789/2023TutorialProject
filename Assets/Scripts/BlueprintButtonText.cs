@@ -18,22 +18,8 @@ public class BlueprintButtonText : MonoBehaviour
         gapandae_button = GameObject.Find("GapandaeButton");
         mf = gapandae_button.GetComponent<MakingFirecrack>();
         toggle = GetComponent<Toggle>();
-        //toggle.onValueChanged.AddListener((ison) => {
-        //    if (ison)
-        //    {
-                 
-        //    }
-        //});
     }
-    public void SetName(int _value, string _name)
-    {
-        parent = transform.parent.gameObject;
-        gameObject.GetComponent<Toggle>().group = parent.GetComponent<ToggleGroup>();
-        tmpu.text = _name;
-        value = _value;
-        parent = null;
-    }
-    public void OnChange(bool _is_on)
+    public void OnChange(Toggle toggle)
     {
         if (parent == null)
         {

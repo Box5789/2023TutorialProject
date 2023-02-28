@@ -4,4 +4,8 @@ using UnityEngine;
 
 public class ButtonFunction : MonoBehaviour
 {
+    public void hello()
+    {
+        Debug.Log("hello");
+    }
 }
