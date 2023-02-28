@@ -5,11 +5,6 @@ using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.VFX;
 
-[Serializable]
-public class Audio
-{
-    public AudioSource audioSource;
-}
 public class Firework : MonoBehaviour
 {
     public AudioSource audioSource;
@@ -39,7 +34,21 @@ public class Firework : MonoBehaviour
             yield return new WaitForSeconds(VisualEffect.GetFloat("Life 1"));
             if(VisualEffect.GetInt("Amount 1")!=0)
                 audioSource.PlayOneShot(audioOnExplosion2);
+
+            
         }
+    }
+
+    //1차 폭발 색상 설정 코드
+    public void SetGradiant(Gradient gradient)
+    {
+        VisualEffect.SetGradient("Gradiant",gradient);
+    }
+    
+    //2차 폭발 색상 설정 코드
+    public void SetGradiant1(Gradient gradient)
+    {
+        VisualEffect.SetGradient("Gradiant 1",gradient);
     }
         
 }
