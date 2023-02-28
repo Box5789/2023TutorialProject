@@ -5,6 +5,8 @@ using UnityEngine;
 public class StringController : MonoBehaviour
 {
     private string path;
+    private string shape_path;
+    private string color_path;
     private string textValue;
     private string[] string_list;
     private string[] color_name_list;
@@ -18,13 +20,17 @@ public class StringController : MonoBehaviour
         //shape_name_list = new string[] { "b0", "b1", "b2", "b3" };
         string_list = new string[10];
         path = @"./Assets/Scripts/request.txt";
+        shape_path = @"./Assets/Scripts/Id.txt";
+        color_path = @"./Assets/Scripts/color.txt";
         textValue = System.IO.File.ReadAllText(path);
+        shape_name_list = System.IO.File.ReadAllText(shape_path).Split('\n');
+        color_name_list = System.IO.File.ReadAllText(color_path).Split('\n');
         //textValue = "나는 A색의 B모양 불꽃이 좋아.\n나는 겨울과 같은 B모양의 A색이 더 좋아.";
         string_list = textValue.Split('\n');
         //GetOrder();
     }
 
-    public string GetOrder(string _color_name, string _shape_name)
+    public string GetOrder(int color_id, int tag_id)
     {
         int sentence_type_id = Random.Range(0, string_list.Length);
         //int color_id = Random.Range(0, color_num);
@@ -36,12 +42,12 @@ public class StringController : MonoBehaviour
             if (c == 'A')
             {
                 //ans += color_name_list[color_id];
-                ans += _color_name;
+                ans += color_name_list[color_id];
             }
             else if (c == 'B')
             {
                 //ans += shape_name_list[shape_id];
-                ans += _shape_name;
+                ans += shape_name_list[tag_id];
             }
             else
             {
