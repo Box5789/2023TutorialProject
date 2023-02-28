@@ -28,20 +28,21 @@ public class BluePrintUIManager : MonoBehaviour
     void Start()
     {
         blueprints_view_length = 4;
-        all_blueprints = new int[10] {1,2,3,4,5,6,7,8,9,10 };
-        player_had_list = new bool[10] { true, false, false, true, true, false, true, true, false, true };
+        all_blueprints = new int[10] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        //player_had_list = new bool[10] { true, false, false, true, true, false, true, true, false, true };
+        player_had_list = new bool[10] { true, true, true, true, true, true, true, true, true, true };
         pointer = 0;
         pos_list = new Vector3[all_blueprints.Length];
         Vector3 first_pos = transform.GetChild(0).position;
-        for(int i=0; i<blueprints_view_length; i++)
+        for (int i = 0; i < blueprints_view_length; i++)
         {
-            pos_list[i] = first_pos + new Vector3(73*i, 0, 0);
-            transform.GetChild(i).gameObject.SetActive(true);
+            pos_list[i] = first_pos + new Vector3(73 * i, 0, 0);
+            //transform.GetChild(i).gameObject.SetActive(true);
         }
-        for(int i=blueprints_view_length; i<all_blueprints.Length; i++)
-        {
-            transform.GetChild(i).gameObject.SetActive(false);
-        }
+        //for(int i=blueprints_view_length; i<all_blueprints.Length; i++)
+        //{
+        //    transform.GetChild(i).gameObject.SetActive(false);
+        //}
         LoadUI();
     }
     public void IncreasePointer()
@@ -64,34 +65,54 @@ public class BluePrintUIManager : MonoBehaviour
     {
         GameObject go;
         int pos_num = 0;
-        for(int i=0; i<all_blueprints.Length; i++)
+        for (int i = 0; i < all_blueprints.Length; i++)
         {
             go = transform.GetChild(i).gameObject;
             if (pointer <= i && i < pointer + blueprints_view_length)
             {
                 go.transform.position = pos_list[pos_num++];
-                go.SetActive(true);
-                if (player_had_list[i]==false)
+                //Active(go, true);
+                //go.SetActive(true);
+                //if (go.GetComponent<Toggle>().isOn)
+                //{
+                //    go.transform.GetChild(0).gameObject.GetComponent<Image>().enabled = true;
+                //    go.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().enabled = true;
+                //}
+                //else
+                //{
+                //    go.transform.GetChild(0).gameObject.GetComponent<Image>().enabled = true;
+                //    go.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().enabled = true;
+                //}
+                if (player_had_list[i] == false)
                 {
                     Locked(go);
                 }
             }
             else
             {
-                go.SetActive(false);
+                //Active(go, false);
+                //go.SetActive(false);
+                //go.GetComponent<Image>().enabled = false;
+                //go.transform.GetChild(0).gameObject.GetComponent<Image>().enabled = false;
+                //go.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.GetComponent<Image>().enabled = false;
             }
         }
     }
 
+    public void Active(GameObject go, bool flag)
+    {
+        go.GetComponent<Image>().enabled = flag;
+    }
+
     public void Locked(GameObject go)
     {
-        GameObject locked = Instantiate(locked_prefab,go.transform);
+        GameObject locked = Instantiate(locked_prefab, go.transform);
         locked.transform.position = go.transform.position;
     }
 
     public void Clicked(int num)
     {
-        for(int i=0; i<all_blueprints.Length; i++)
+        for (int i = 0; i < all_blueprints.Length; i++)
         {
             if (i == num)
             {
@@ -116,3 +137,4 @@ public class BluePrintUIManager : MonoBehaviour
         }
     }
 }
+
