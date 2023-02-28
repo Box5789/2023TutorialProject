@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Blueprint
+public class Blueprint_UI
 {
     private int id;
     private string name;
