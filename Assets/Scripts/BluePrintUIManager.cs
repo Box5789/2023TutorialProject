@@ -93,18 +93,25 @@ public class BluePrintUIManager : MonoBehaviour
     {
         for(int i=0; i<all_blueprints.Length; i++)
         {
-            Color color = transform.GetChild(i).gameObject.GetComponent<Image>().color;
             if (i == num)
             {
-                color.r = 255; 
-                color.g = 255; 
-                color.b = 255; 
+                Color color = new Color();
+                color.r = 255;
+                color.g = 255;
+                color.b = 255;
+                color.a = 255;
+                transform.GetChild(i).gameObject.GetComponent<Image>().color = color;
+                Debug.Log(transform.GetChild(i).gameObject.GetComponent<Image>().color);
             }
             else
             {
-                color.r = 155; 
-                color.g = 155; 
-                color.b = 155; 
+                Color color = new Color();
+                color.r = 155;
+                color.g = 155;
+                color.b = 155;
+                color.a = 255;
+                transform.GetChild(i).gameObject.GetComponent<Image>().color = color;
+                Debug.Log(transform.GetChild(i).gameObject.GetComponent<Image>().color);
             }
         }
     }
