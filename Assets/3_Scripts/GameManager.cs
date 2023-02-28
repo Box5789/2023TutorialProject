@@ -57,25 +57,25 @@ public class Blueprint
 [Serializable]
 public class FireCracker
 {
-    [SerializeField] private int _color_Id1;
-    public int color_Id1 { get { return _color_Id1; } set { if (value < 0) _color_Id1 = 0; else _color_Id1 = value; } }
+    [SerializeField] private int _color_Id_1;
+    public int color_Id_1 { get { return _color_Id_1; } set { if (value < 0) _color_Id_1 = 0; else _color_Id_1 = value; } }
 
-    [SerializeField] private int _color_Id2;
-    public int color_Id2 { get { return _color_Id2; } set { if (value < 0) _color_Id2 = 0; else _color_Id2 = value; } }
+    [SerializeField] private int _color_Id_2;
+    public int color_Id_2 { get { return _color_Id_2; } set { if (value < 0) _color_Id_2 = 0; else _color_Id_2 = value; } }
 
-    [SerializeField] private float _transparency;
+    [SerializeField] private float _transparency = 1;
     public float transparency { get { return _transparency; } set { if (value < 0) _transparency = 0; else _transparency = value; } }
 
-    [SerializeField] private Blueprint _bp;
-    public Blueprint bp { get { return _bp; } set { _bp = value; } }
+    [SerializeField] private int _bp_Id;
+    public int bp_Id { get { return _bp_Id; } set { if (value < 0) _bp_Id = 0; else _bp_Id = value; } }
 
 
     public void Clear_FireCracker()
     {
-        _color_Id1 = 0;
-        _color_Id2 = 0;
+        _color_Id_1 = 0;
+        _color_Id_2 = 0;
         _transparency = 0.0f;
-        _bp.Clear_Blueprint();
+        _bp_Id = 0;
     }
 
 }
@@ -91,9 +91,10 @@ public class GameManager : MonoBehaviour
     [Header("Data")]
     [SerializeField] private GameState _gameState;
 
-    [SerializeField] private FireCracker background_fireCracker;
-    [SerializeField] private FireCracker crafted_fireCracker;
-    [SerializeField] private Request present_request;
+    [SerializeField] private FireCracker background_FireCracker;
+    public FireCracker crafted_FireCracker;
+
+    [SerializeField] private Request present_Request;
 
     [SerializeField] private List<Blueprint> blueprints_Database;
 
@@ -135,10 +136,9 @@ public class GameManager : MonoBehaviour
     }
     private void init()
     {
-        present_request.Clear_Request();
-        crafted_fireCracker.Clear_FireCracker();
+        present_Request.Clear_Request();
+        crafted_FireCracker.Clear_FireCracker();
     }
-
 
     #region open and close // Change State
 
@@ -176,8 +176,8 @@ public class GameManager : MonoBehaviour
 
     private void Set_Present_Request()  //random
     {
-        present_request.color_Id = 1;
-        present_request.tag_Id = 3;
+        present_Request.color_Id = 1;
+        present_Request.tag_Id = 3;
     }
 
     private IEnumerator Change_Transperency(bool isAppearing)
@@ -190,7 +190,7 @@ public class GameManager : MonoBehaviour
             client_GO.SetActive(true);
 
             temp = 0.0f;
-            
+
             while (temp < time)
             {
                 temp += Time.fixedDeltaTime;
@@ -218,20 +218,21 @@ public class GameManager : MonoBehaviour
             client_GO.SetActive(false);
         }
 
-        
+
     }
 
     #endregion
 
 
-    #region request
-
-    public bool Check_At_Submit() 
+    #region Submit and Check
+    public bool Check_At_Submit()
     {
         bool isMet = true;
 
-
-        if (present_request.color_Id == FindColor(crafted_fireCracker.color_Id1, crafted_fireCracker.color_Id2))
+        //조건 : 조합된 색이든 포함이 되어있든 둘 중 하나만 만족하면 됨
+        if (present_Request.color_Id == FindColor_Id(crafted_FireCracker.color_Id_1, crafted_FireCracker.color_Id_2) ||
+            present_Request.color_Id == crafted_FireCracker.color_Id_1 ||
+            present_Request.color_Id == crafted_FireCracker.color_Id_2)
         {
             //색 맞추기 성공~
         }
@@ -240,17 +241,11 @@ public class GameManager : MonoBehaviour
             isMet = false;
         }
 
-        bool isBreaked = false;
-        for (int i = 0; i < 5; i++)
-        {
-            if (present_request.tag_Id == crafted_fireCracker.bp.tag_Id[i]) //tag
-            {
-                isBreaked = true;
-                break;
-            }
-        }
+        bool isThere = false;
 
-        if (isBreaked)
+        isThere = Find_Tag_Id(present_Request.tag_Id, crafted_FireCracker.bp_Id);
+
+        if (isThere)
         {
             //태그 맞추기 성공~
         }
@@ -259,15 +254,7 @@ public class GameManager : MonoBehaviour
             isMet = false;
         }
 
-        background_fireCracker.color_Id1    = crafted_fireCracker.color_Id1;
-        background_fireCracker.color_Id2    = crafted_fireCracker.color_Id2;
-        background_fireCracker.transparency = crafted_fireCracker.transparency;
-        background_fireCracker.bp.ishad     = crafted_fireCracker.bp.ishad;
-        background_fireCracker.bp.print_Id  = crafted_fireCracker.bp.print_Id;
-        for (int i=0;i<5;i++)
-        {
-            background_fireCracker.bp.tag_Id[i] = crafted_fireCracker.bp.tag_Id[i];
-        }
+        Copy_FireCracker(crafted_FireCracker, background_FireCracker);
 
 
         init();
@@ -281,15 +268,67 @@ public class GameManager : MonoBehaviour
         return isMet;
     }
 
+
+    public void Copy_FireCracker(FireCracker f_source, FireCracker f_target)
+    {
+        f_target.color_Id_1 = f_source.color_Id_1;
+        f_target.color_Id_2 = f_source.color_Id_2;
+        f_target.transparency = f_source.transparency;
+        f_target.bp_Id = f_source.bp_Id;
+    }
+    #endregion
+
+
     private IEnumerator Apply_FireCracker()
     {
         yield return WFS_5sec;
 
         //visualEffect.SetFloat("");
-        //apply gktpyd~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        //apply gktpyd~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        
+
+        Gradient g;
+        GradientColorKey[] gck;
+        GradientAlphaKey[] gak;
+        g = new Gradient();
+        gck = new GradientColorKey[4];
+        gck[0].color = FindColor(background_FireCracker.color_Id_1);
+        gck[0].time = 0.0F;
+        gck[1].color = FindColor(FindColor_Id(background_FireCracker.color_Id_1, background_FireCracker.color_Id_2));
+        gck[1].time = 0.1F;
+        gck[2].color = FindColor(FindColor_Id(background_FireCracker.color_Id_1, background_FireCracker.color_Id_2));
+        gck[2].time = 0.9F;
+        gck[3].color = FindColor(background_FireCracker.color_Id_2);
+        gck[3].time = 1.0F;
+        gak = new GradientAlphaKey[2];
+        gak[0].alpha = background_FireCracker.transparency;
+        gak[0].time = 0.0F;
+        gak[1].alpha = background_FireCracker.transparency;
+        gak[1].time = 1.0F;
+        g.SetKeys(gck, gak);
+
+        visualEffect.SetGradient("Gradiant", g);
+
+
     }
 
-    private int FindColor(int i, int j)
+
+    #region Tools
+
+    private bool Find_Tag_Id(int tag_Id, int bp_Id)
+    {
+        for (int i=0;i< 5;i++)
+        {            
+            if (blueprints_Database[bp_Id].tag_Id[i] == tag_Id)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private int FindColor_Id(int i, int j)
     {
         /*
             0 : 빨
@@ -324,8 +363,70 @@ public class GameManager : MonoBehaviour
         return temp;
 
     }
+    private Color FindColor(int i)
+    {
+        /*
+            0 : 빨
+            1 : 파 
+            2 : 노
+            3 : 흰
+            4 : 보라
+            5 : 주황
+            6 : 분홍
+            7 : 초록
+            8 : 하늘
+            9 : 연노랑
+         */
 
+        Color c = new Color();
+
+        switch (i)
+        {
+            case 0:
+                c = Color.red;
+                break;
+            case 1:
+                //c = Color.blue;
+                c = new Color( 0.0f , 12/255f , 1.0f);
+                break;
+            case 2:
+                c = Color.yellow;
+                break;
+            case 3:
+                c = Color.white;
+                break;
+            case 4:
+                ColorUtility.TryParseHtmlString("#7F38EC", out c); //보라
+                break;
+            case 5:
+                ColorUtility.TryParseHtmlString("#FF8040", out c); //주황
+                break;
+            case 6:
+                //ColorUtility.TryParseHtmlString("#FFC1CC", out c); //분홍
+                c = new Color(253 / 255f, 85 / 255f, 114 / 255f);
+                break;
+            case 7:
+                //ColorUtility.TryParseHtmlString("#387C44",out c); //초록
+                ColorUtility.TryParseHtmlString("#00994c", out c); //초록
+
+                break;
+            case 8:
+                //ColorUtility.TryParseHtmlString("#CBEAFB", out c); //하늘
+
+                c = new Color(70 / 255f, 190 / 255f, 255 / 255f);
+                break;
+            case 9:
+                //ColorUtility.TryParseHtmlString("#FFF8C6", out c); //레몬
+
+                c = new Color(255 / 255f, 240 / 255f, 114 / 255f);
+
+                break;
+            default:
+                break;
+        }
+        return c;
+
+    }
 
     #endregion
-
 }
