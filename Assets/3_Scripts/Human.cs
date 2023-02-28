@@ -7,18 +7,17 @@ public class Human : MonoBehaviour
 {
     [SerializeField] private Vector2 dir;
     [SerializeField] private bool canMove = false;
-    [SerializeField] private float speed = 2.0f;
+    [SerializeField] private float speed;
 
     [SerializeField] private Rigidbody2D _rigid;
+    [SerializeField] private SpriteRenderer _sr;
 
-    private void OnEnable()
+    public void First_Set(float time)
     {
-        Invoke("SetDirection", 1.0f);
-        Invoke("Destroy_Self", 300.0f);
-    }
-    private void OnDisable()
-    {
-        CancelInvoke("SetDirection");
+        speed = Random.Range(7, 12);
+        StartCoroutine(Change_Transperency(true));
+        StartCoroutine(Destroy_Self(time));
+        StartCoroutine(SetDirection());
     }
 
     private void FixedUpdate()
@@ -32,36 +31,81 @@ public class Human : MonoBehaviour
             _rigid.MovePosition(_rigid.position + dir * speed * Time.fixedDeltaTime);
     }
 
-    private void SetDirection()
+    private IEnumerator SetDirection()
     {
-        canMove = true;
+        while (true)
+        {
+            canMove = true;
 
-        if (_rigid.position.x < -23)
-            dir = Vector2.right;
-        else if (_rigid.position.x > 23)
-            dir = Vector2.left;
+            if (_rigid.position.x < -1850)
+                dir = Vector2.right;
+            else if (_rigid.position.x > 1850)
+                dir = Vector2.left;
+            else
+            {
+                int r = Random.Range(0, 2);
+
+                if (r == 0)
+                    dir = Vector2.right;
+                else
+                    dir = Vector2.left;
+            }
+
+            StartCoroutine(StopMove());
+            yield return new WaitForSeconds(7);
+        }
+    }
+
+    private IEnumerator StopMove()
+    {
+        yield return new WaitForSeconds(4);
+        canMove = false;
+    }
+
+
+    private IEnumerator Destroy_Self(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        StartCoroutine(Change_Transperency(false));
+        yield return new WaitForSeconds(4);
+        Destroy(gameObject);
+    }
+
+
+    WaitForSeconds WFS_FDT = new WaitForSeconds(0.02f);
+    private IEnumerator Change_Transperency(bool isAppearing)
+    {
+        float time = 4.0f;
+        float temp = 0.0f;
+
+        if (isAppearing)
+        {
+            gameObject.SetActive(true);
+
+            temp = 0.0f;
+
+            while (temp < time)
+            {
+                temp += Time.fixedDeltaTime;
+                _sr.color = new Color(1f, 1f, 1f, temp / time);
+                yield return WFS_FDT;
+            }
+        }
         else
         {
-            int r = Random.Range(0, 2);
+            temp = 4.0f;
 
-            if (r == 0)
-                dir = Vector2.right;
-            else
-                dir = Vector2.left;
+            while (temp > 0.0f)
+            {
+                temp -= Time.fixedDeltaTime;
+                _sr.color = new Color(1f, 1f, 1f, temp / time);
+                yield return WFS_FDT;
+            }
+
+            gameObject.SetActive(false);
         }
-        Invoke("CanMove", 5.0f);
-    }
-
-    private void CanMove()
-    {
-        canMove = false;
-
-        Invoke("SetDirection", 1.5f);
-    }
 
 
-    private void Destroy_Self()
-    {
-        Destroy(gameObject);
     }
 }

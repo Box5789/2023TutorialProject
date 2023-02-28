@@ -66,7 +66,7 @@ public class FireCracker
     {
         _color_Id_1 = 0;
         _color_Id_2 = 0;
-        _transparency = 0.0f;
+        _transparency = 1.0f;
         _bp_Id = 0;
     }
 
@@ -152,6 +152,7 @@ public class GameManager : MonoBehaviour
     WaitForSeconds WFS_FDT = new WaitForSeconds(0.02f);
     private IEnumerator Open_UnderRequest()
     {
+        yield return WFS_5sec;
         yield return WFS_5sec;
         gameState = GameState.open_underRequest;
         AppearClient();
