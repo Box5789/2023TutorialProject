@@ -108,14 +108,23 @@ public class GameManager : MonoBehaviour
     [Header("Fireworks")]
     [SerializeField] private VisualEffect visualEffect;
 
+
+    [Header("Make_Get_BluePrint_Bt")]
+    [SerializeField] private GameObject[] buttons_GO;
+
     private void Awake()
     {
         init();
 
         _gameState = GameState.close;
-
+        StartCoroutine(Make_Get_Blueprint_Event());
     }
 
+    private void init()
+    {
+        present_Request.Clear_Request();
+        crafted_FireCracker.Clear_FireCracker();
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
@@ -134,11 +143,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    private void init()
-    {
-        present_Request.Clear_Request();
-        crafted_FireCracker.Clear_FireCracker();
-    }
+    
 
     #region open and close // Change State
 
@@ -256,11 +261,9 @@ public class GameManager : MonoBehaviour
 
         Copy_FireCracker(crafted_FireCracker, background_FireCracker);
 
-
         init();
 
         Open_Gapandae();
-
         DisappearClient();
         StartCoroutine(Apply_FireCracker());
 
@@ -279,14 +282,50 @@ public class GameManager : MonoBehaviour
     #endregion
 
 
+    #region blueprint È¹µæ
+
+    private bool isExisted = false; 
+    private int eventUI_Id = -1;
+
+    public void Get_Blueprint() //UI¿¡¼­ È¹µæ ¹öÆ°µéÀÌ °øÅëÀ¸·Î ÂüÁ¶ÇÏ´Â(add)
+    {
+        isExisted = false;
+        eventUI_Id = -1; // ¾øÀ½.
+        Button_OnOff(isExisted);
+    }
+    WaitForSeconds WFS_20sec = new WaitForSeconds(20.0f);
+    
+    private IEnumerator Make_Get_Blueprint_Event()
+    {
+        yield return WFS_20sec;
+        while (true)
+        {
+            if (!isExisted)
+            {
+                isExisted = true;
+                eventUI_Id = UnityEngine.Random.Range(0, 5); 
+                Button_OnOff(isExisted);
+            }
+            yield return WFS_20sec;
+        }
+    }
+
+    private void Button_OnOff(bool on)
+    {
+        buttons_GO[eventUI_Id].SetActive(on);
+    }
+
+    #endregion
+
+
+    #region Tools
+
     private IEnumerator Apply_FireCracker()
     {
         yield return WFS_5sec;
 
         //visualEffect.SetFloat("");
         //apply gktpyd~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-        
 
         Gradient g;
         GradientColorKey[] gck;
@@ -312,9 +351,6 @@ public class GameManager : MonoBehaviour
 
 
     }
-
-
-    #region Tools
 
     private bool Find_Tag_Id(int tag_Id, int bp_Id)
     {
