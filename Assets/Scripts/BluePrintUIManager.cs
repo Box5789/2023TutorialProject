@@ -28,9 +28,9 @@ public class BluePrintUIManager : MonoBehaviour
     void Start()
     {
         blueprints_view_length = 4;
-        all_blueprints = new int[10] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        //player_had_list = new bool[10] { true, false, false, true, true, false, true, true, false, true };
-        player_had_list = new bool[10] { true, true, true, true, true, true, true, true, true, true };
+        all_blueprints = new int[8] { 1, 2, 3, 4, 5, 6, 7, 8 };
+
+        player_had_list = new bool[8] { true, true, false, true, true, true, true, true};
         pointer = 0;
         pos_list = new Vector3[all_blueprints.Length];
         Vector3 first_pos = transform.GetChild(0).position;
@@ -45,6 +45,8 @@ public class BluePrintUIManager : MonoBehaviour
         //}
         LoadUI();
     }
+
+    /*
     public void IncreasePointer()
     {
         if (pointer < all_blueprints.Length - blueprints_view_length)
@@ -60,7 +62,7 @@ public class BluePrintUIManager : MonoBehaviour
             pointer--;
             LoadUI();
         }
-    }
+    }*/
     public void LoadUI()
     {
         GameObject go;

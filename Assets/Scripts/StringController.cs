@@ -11,8 +11,6 @@ public class StringController : MonoBehaviour
     private string[] string_list;
     private string[] color_name_list;
     private string[] shape_name_list;
-    const int color_num = 4; // юс╫ц╥н ╣р
-    const int shape_num = 4; // юс╫ц╥н ╣р 
 
     private void Start()
     {

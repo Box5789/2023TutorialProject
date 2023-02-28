@@ -84,11 +84,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int have_Gold = 0;
 
     [Header("Data")]
+    [SerializeField] private StringController stringController;
+
     [SerializeField] private GameState gameState;
     [SerializeField] private FireCracker background_FireCracker;
     public FireCracker crafted_FireCracker;
     [SerializeField] private Request present_Request;
     [SerializeField] private List<Blueprint> blueprints_Database;
+    
 
     [Header("Client")]
     [SerializeField] private GameObject client_GO;
@@ -176,7 +179,7 @@ public class GameManager : MonoBehaviour
         present_Request.tag_Id = Get_Rand_Tag_Among_Have();
 
         //여기서 text 적용
-        //request_Text.text = (present_Request.color_Id , present_Request.tag_Id);
+        request_Text.text = stringController.GetOrder(present_Request.color_Id , present_Request.tag_Id);
     }
 
     #endregion
