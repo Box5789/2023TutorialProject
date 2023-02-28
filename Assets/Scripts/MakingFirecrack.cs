@@ -46,10 +46,9 @@ public class MakingFirecrack : MonoBehaviour
         for(int i=0; i<inventory_string.Length; i++)
         {
             GameObject blueprint_button = Instantiate(blueprint_ui_prefab, blueprint_scroll_object.transform);
-            blueprint_button.GetComponent<BlueprintButtonText>().SetName(inventory_string[i]);
+            blueprint_button.GetComponent<BlueprintButtonText>().SetName(i,inventory_string[i]);
             if (i == 0) pos = blueprint_button.transform.position;
             else blueprint_button.transform.position = pos + new Vector3(0, -1 * d * i, 0);
-            Debug.Log(blueprint_button.transform.position);
         }
     }
 
