@@ -103,12 +103,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SpriteRenderer talk_Ballon_SR;
     [SerializeField] private TextMeshPro request_Text;
 
-
-    [Header("Fireworks")]
-    [SerializeField] private VisualEffect visualEffect_Basic;
-    [SerializeField] private VisualEffect visualEffect_Shape;
-
-
     [Header("Make_Get_BluePrint_Bt")]
     [SerializeField] private GameObject[] buttons_GO;
 
@@ -395,21 +389,25 @@ public class GameManager : MonoBehaviour
 
     }
 
+
+    [SerializeField] private Fireworks_Ctrl fireworks_Ctrl;
     private IEnumerator Apply_FireCracker()
     {
         yield return WFS_5sec;
 
         //visualEffect.SetFloat("");
         //apply gktpyd~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        Gradient g;
+        Gradient g1;
+        Gradient g2;
         GradientColorKey[] gck;
         GradientAlphaKey[] gak;
-        g = new Gradient();
+        g1 = new Gradient();
+        g2 = new Gradient();
         gck = new GradientColorKey[4];
 
         if (background_FireCracker.bp_Id == 0)
         {
-            Switching_Firework(true);
+            fireworks_Ctrl.Switching_Fireworks(true);
 
             gck[0].color = Find_Color(background_FireCracker.color_Id_1);
             gck[0].time = 0.0F;
@@ -424,17 +422,15 @@ public class GameManager : MonoBehaviour
             gak[0].time = 0.0F;
             gak[1].alpha = background_FireCracker.transparency;
             gak[1].time = 1.0F;
-            g.SetKeys(gck, gak);
 
 
-            visualEffect_Basic.SetInt("Amount", 200);
-            visualEffect_Basic.SetGradient("Gradiant", g);
-            
-            visualEffect_Basic.SetInt("Amount 1", 0);
+            g1.SetKeys(gck, gak);
+
+            fireworks_Ctrl.Applying(200, g1, 0);
         }
         else if(background_FireCracker.bp_Id == 1)
         {
-            Switching_Firework(true);
+            fireworks_Ctrl.Switching_Fireworks(true);
 
             gck[0].color = Find_Color(Find_Color_Id(background_FireCracker.color_Id_1, background_FireCracker.color_Id_2));
             gck[0].time = 0.0F;
@@ -449,10 +445,9 @@ public class GameManager : MonoBehaviour
             gak[0].time = 0.0F;
             gak[1].alpha = background_FireCracker.transparency;
             gak[1].time = 1.0F;
-            g.SetKeys(gck, gak);
 
-            visualEffect_Basic.SetInt("Amount", 150);
-            visualEffect_Basic.SetGradient("Gradiant", g);
+            g1.SetKeys(gck, gak);
+
 
             gck[0].color = Find_Color(background_FireCracker.color_Id_1);
             gck[0].time = 0.0F;
@@ -467,14 +462,15 @@ public class GameManager : MonoBehaviour
             gak[0].time = 0.0F;
             gak[1].alpha = background_FireCracker.transparency;
             gak[1].time = 1.0F;
-            g.SetKeys(gck, gak);
 
-            visualEffect_Basic.SetInt("Amount 1", 3);
-            visualEffect_Basic.SetGradient("Gradiant 1", g);
+            g2.SetKeys(gck, gak);
+
+
+            fireworks_Ctrl.Applying(150, g1, 3, g2);
         }
         else
         {
-            Switching_Firework(false);
+            fireworks_Ctrl.Switching_Fireworks(true);
 
             gck[0].color = Find_Color(background_FireCracker.color_Id_1);
             gck[0].time = 0.0F;
@@ -489,36 +485,10 @@ public class GameManager : MonoBehaviour
             gak[0].time = 0.0F;
             gak[1].alpha = background_FireCracker.transparency;
             gak[1].time = 1.0F;
-            g.SetKeys(gck, gak);
 
+            g1.SetKeys(gck, gak);
 
-
-            visualEffect_Shape.SetTexture("Shape", blueprints_Database[background_FireCracker.bp_Id].t);
-            visualEffect_Shape.SetInt("Amount", 300);
-            visualEffect_Shape.SetFloat("Scale", 30);
-            visualEffect_Shape.SetGradient("Gradiant", g);
-
-            visualEffect_Shape.SetInt("Amount 1", 0);
-        }
-        
-        
-        
-
-
-    }
-
-
-    private void Switching_Firework(bool isBasic)
-    {
-        if (isBasic)
-        {
-            visualEffect_Basic.enabled = true;
-            visualEffect_Shape.enabled = false;
-        }
-        else
-        {
-            visualEffect_Basic.enabled = false;
-            visualEffect_Shape.enabled = true;
+            fireworks_Ctrl.Applying(blueprints_Database[background_FireCracker.bp_Id].t, 300, 30.0f, g1, 0);
         }
     }
 

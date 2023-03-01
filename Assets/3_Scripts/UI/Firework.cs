@@ -16,14 +16,22 @@ public class Firework : MonoBehaviour
 
     private bool Play;
 
-    private void OnEnable()
+    private IEnumerator coroutine;
+
+    public void Shoot()
     {
-        if(Play==false)
-            StartCoroutine(Firework1());
+        coroutine = Firework_Shoot();
+        StartCoroutine(coroutine);
     }
-    IEnumerator Firework1()
+
+    public void Stop()
     {
-        //var random=new Unity.Mathematics.Random();
+        StopCoroutine(coroutine);
+    }
+
+    IEnumerator Firework_Shoot()
+    {
+        yield return new WaitForSeconds(Random.Range(0.1f, 2.0f));
         Play = true;
         while (Play)
         {
@@ -37,7 +45,6 @@ public class Firework : MonoBehaviour
             if(VisualEffect.GetInt("Amount 1")!=0)
                 audioSource.PlayOneShot(audioOnExplosion2,Random.Range(0.1f,1));
 
-            
         }
     }
 
