@@ -2823,7 +2823,7 @@ PrefabInstance:
     - target: {fileID: 6228091422648509456, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6228091422648509456, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
@@ -2843,7 +2843,7 @@ PrefabInstance:
     - target: {fileID: 6228091422648509457, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bad7dd47cebf995438c63ffdca0e0a9e, type: 3}
@@ -5062,7 +5062,7 @@ PrefabInstance:
     - target: {fileID: 6228091422648509456, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6228091422648509456, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
@@ -5082,7 +5082,7 @@ PrefabInstance:
     - target: {fileID: 6228091422648509457, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bad7dd47cebf995438c63ffdca0e0a9e, type: 3}
@@ -6975,6 +6975,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4878460315055165340, guid: c0965399d23f12e4b9d845664e1ecc1b,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878460315055165340, guid: c0965399d23f12e4b9d845664e1ecc1b,
+        type: 3}
       propertyPath: m_SortingLayer
       value: 3
       objectReference: {fileID: 0}
@@ -6987,6 +6992,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Firework (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878460315055165341, guid: c0965399d23f12e4b9d845664e1ecc1b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0965399d23f12e4b9d845664e1ecc1b, type: 3}
@@ -7667,7 +7677,7 @@ PrefabInstance:
     - target: {fileID: 6228091422648509456, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6228091422648509456, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
@@ -7687,7 +7697,7 @@ PrefabInstance:
     - target: {fileID: 6228091422648509457, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bad7dd47cebf995438c63ffdca0e0a9e, type: 3}
@@ -9473,7 +9483,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -760, y: -410}
+  m_AnchoredPosition: {x: -905.9, y: -500.6}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1644087675
@@ -11901,6 +11911,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4878460315055165340, guid: c0965399d23f12e4b9d845664e1ecc1b,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878460315055165340, guid: c0965399d23f12e4b9d845664e1ecc1b,
+        type: 3}
       propertyPath: m_SortingLayer
       value: 3
       objectReference: {fileID: 0}
@@ -11913,6 +11928,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Firework (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878460315055165341, guid: c0965399d23f12e4b9d845664e1ecc1b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0965399d23f12e4b9d845664e1ecc1b, type: 3}
@@ -12292,6 +12312,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4878460315055165340, guid: c0965399d23f12e4b9d845664e1ecc1b,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878460315055165340, guid: c0965399d23f12e4b9d845664e1ecc1b,
+        type: 3}
       propertyPath: m_SortingLayer
       value: 3
       objectReference: {fileID: 0}
@@ -12304,6 +12329,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Firework
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878460315055165341, guid: c0965399d23f12e4b9d845664e1ecc1b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0965399d23f12e4b9d845664e1ecc1b, type: 3}

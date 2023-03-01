@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -27,6 +28,12 @@ public class Firework : MonoBehaviour
     public void Stop()
     {
         StopCoroutine(coroutine);
+    }
+
+    void OnEnable()
+    {
+        coroutine = Firework_Shoot();
+        StartCoroutine(coroutine);
     }
 
     IEnumerator Firework_Shoot()

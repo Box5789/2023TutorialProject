@@ -26,26 +26,36 @@ public class Fireworks_Ctrl : MonoBehaviour
     [SerializeField] private VisualEffect visualEffect_Shape_2;
     [SerializeField] private VisualEffect visualEffect_Shape_3;
 
+    private Queue<GameObject> fireworks=new Queue<GameObject>();
+
     private void OnEnable()
     {
-        firwork_Basic_1.Shoot();
-        firwork_Basic_2.Shoot();
-        firwork_Basic_3.Shoot();
-        firwork_Shape_1.Shoot();
-        firwork_Shape_2.Shoot();
-        firwork_Shape_3.Shoot();
-        Switching_Fireworks(true);
+        go_firwork_Basic_1.SetActive(false);
+        go_firwork_Basic_2.SetActive(false);
+        go_firwork_Basic_3.SetActive(false);
+        go_firwork_Shape_1.SetActive(false);
+        go_firwork_Shape_2.SetActive(false);
+        go_firwork_Shape_3.SetActive(false);
+        //firwork_Basic_1.Shoot();
+        //firwork_Basic_2.Shoot();
+        //firwork_Basic_3.Shoot();
+        //firwork_Shape_1.Shoot();
+        //firwork_Shape_2.Shoot();
+        //firwork_Shape_3.Shoot();
+       // Switching_Fireworks(true);
     }
 
 
     public void Switching_Fireworks(bool isBasic)
     {
+        /*
         go_firwork_Basic_1.SetActive(isBasic);
         go_firwork_Basic_2.SetActive(isBasic);
         go_firwork_Basic_3.SetActive(isBasic);
         go_firwork_Shape_1.SetActive(!isBasic);
         go_firwork_Shape_2.SetActive(!isBasic);
         go_firwork_Shape_3.SetActive(!isBasic);
+        */
     }
 
     public void Applying(int amount, Gradient g, int amount1)
@@ -62,6 +72,29 @@ public class Fireworks_Ctrl : MonoBehaviour
         visualEffect_Basic_3.SetInt("Amount", amount);
         visualEffect_Basic_3.SetGradient("Gradiant", g);
         visualEffect_Basic_3.SetInt("Amount 1", amount1);
+
+
+        GameObject tmp;
+        switch (fireworks.Count % 3)
+        {
+            case 0:
+                tmp = Instantiate<GameObject>(visualEffect_Basic_1.gameObject, this.transform);
+                break;
+            case 1:
+                tmp = Instantiate<GameObject>(visualEffect_Basic_2.gameObject, this.transform);
+                break;
+            case 2:
+            default:
+                tmp = Instantiate<GameObject>(visualEffect_Basic_3.gameObject, this.transform);
+                break;
+
+        }
+        fireworks.Enqueue(tmp);
+        tmp.SetActive(true);
+        if (fireworks.Count > 3)
+        {
+            Destroy(fireworks.Dequeue());
+        }
     }
 
     public void Applying(int amount, Gradient g1, int amount1, Gradient g2)
@@ -81,6 +114,27 @@ public class Fireworks_Ctrl : MonoBehaviour
         visualEffect_Basic_3.SetGradient("Gradiant", g1);
         visualEffect_Basic_3.SetInt("Amount 1", amount1);
         visualEffect_Basic_3.SetGradient("Gradiant 1", g2);
+        GameObject tmp;
+        switch (fireworks.Count%3)
+        {
+            case 0:
+                 tmp = Instantiate<GameObject>(visualEffect_Basic_1.gameObject, this.transform);
+                break;
+            case 1:
+                tmp = Instantiate<GameObject>(visualEffect_Basic_2.gameObject, this.transform);
+                break;
+            case 2:
+            default: 
+                tmp = Instantiate<GameObject>(visualEffect_Basic_3.gameObject, this.transform);
+                break;
+
+        }
+        fireworks.Enqueue(tmp);
+        tmp.SetActive(true);
+        if (fireworks.Count > 3)
+        {
+            Destroy(fireworks.Dequeue());
+        }
     }
 
 
@@ -105,7 +159,27 @@ public class Fireworks_Ctrl : MonoBehaviour
         visualEffect_Shape_3.SetGradient("Gradiant", g1);
         visualEffect_Shape_3.SetInt("Amount 1", amount1);
 
+        GameObject tmp;
+        switch (fireworks.Count % 3)
+        {
+            case 0:
+                tmp = Instantiate<GameObject>(visualEffect_Shape_1.gameObject, this.transform);
+                break;
+            case 1:
+                tmp = Instantiate<GameObject>(visualEffect_Shape_2.gameObject, this.transform);
+                break;
+            case 2:
+            default:
+                tmp = Instantiate<GameObject>(visualEffect_Shape_3.gameObject, this.transform);
+                break;
 
+        }
+        fireworks.Enqueue(tmp);
+        tmp.SetActive(true);
+        if (fireworks.Count > 3)
+        {
+            Destroy(fireworks.Dequeue());
+        }
     }
 
 
