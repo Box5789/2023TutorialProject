@@ -16,7 +16,10 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters: []
-  m_AudioMixerGroupViews: []
+  m_AudioMixerGroupViews:
+  - guids:
+    - de3fcd951dd1ed04cbfd10c3da182065
+    name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
 --- !u!243 &24300002
@@ -34,6 +37,7 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: 24400004}
+  - {fileID: 4667836308789917985}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -61,5 +65,46 @@ AudioMixerSnapshotController:
   m_Name: Snapshot
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 89414536cbad03b428cf4246240a2110
-  m_FloatValues: {}
+  m_FloatValues:
+    2e74b78217272f648a8de645ce76e86a: -10000
+    114d88347d535d04e8ec1b412661110c: 0
+    cdd33ca4c9d928845b3f68682a0c4405: -10000
+    fb338bd4a14af034a8e4de74f25a5b26: 0.088
+    2dc02be57009c7543a271c8c4c47d33f: 0
+    6f7b82267e4abcf4db84dd8ded0fc12b: 1.61
+    d4d490b6065bf6b4ba22898c031cbed0: -4.1973577
+    829e55875597d0245a8843670c78bd13: 0.366
+    f9c74a09cfa6b214488687018a739d4a: 0
+    da3206391aa68ab45b30ffa4ea6fad2f: 20
+    ef4a165a3a00de544963900737e2d564: 0
+    18a8075bb7ed28c468e58a7408801616: 0.44
+    9523255c8b4721342b8f6384f1b99aa4: -10000
+    b6574fac78453a14598a2a38ecfc0b2a: 3059
+    a17f00dc266e2f148bb3f737f7b265da: 9.95
+    afe8eb1da96657447914e50b9d7fdd76: 0
+    03ca467dd202c4049b36c42f5babbecd: -12.1
+    16da3ecd00347974c9f599b46675dde8: 812
+    c7552f9e456b92c4882225ad679d6284: 13.1
+    b8d23f5f7a7f9074381350394bbf882f: 0.105
+    1ff5c7efde2c8da46a8aee286f5d14b8: 0.35799998
   m_TransitionOverrides: {}
+--- !u!244 &4667836308789917985
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: e35c84b4ab94039418409c389a9f2f97
+  m_EffectName: ParamEQ
+  m_MixLevel: 196b1560a10068446adb5b3a59fc17c3
+  m_Parameters:
+  - m_ParameterName: Center freq
+    m_GUID: b6574fac78453a14598a2a38ecfc0b2a
+  - m_ParameterName: Octave range
+    m_GUID: 6f7b82267e4abcf4db84dd8ded0fc12b
+  - m_ParameterName: Frequency gain
+    m_GUID: 18a8075bb7ed28c468e58a7408801616
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0

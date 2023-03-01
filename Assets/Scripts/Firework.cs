@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -25,18 +22,19 @@ public class Firework : MonoBehaviour
     }
     IEnumerator Firework1()
     {
+        //var random=new Unity.Mathematics.Random();
         Play = true;
         while (Play)
         {
             yield return new WaitForSeconds(1/VisualEffect.GetFloat("Rate"));
             VisualEffect.SendEvent("OnPlay");
-            audioSource.PlayOneShot(audioOnFire);
+            audioSource.PlayOneShot(audioOnFire,Random.Range(0.1f,1));
             yield return new WaitForSeconds(VisualEffect.GetFloat("Life"));
             if(!VisualEffect.GetBool("MuteSound"))
-                audioSource.PlayOneShot(audioOnExplosion);
+                audioSource.PlayOneShot(audioOnExplosion,Random.Range(0.1f,1));
             yield return new WaitForSeconds(VisualEffect.GetFloat("Life 1"));
             if(VisualEffect.GetInt("Amount 1")!=0)
-                audioSource.PlayOneShot(audioOnExplosion2);
+                audioSource.PlayOneShot(audioOnExplosion2,Random.Range(0.1f,1));
 
             
         }
