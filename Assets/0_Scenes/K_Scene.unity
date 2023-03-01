@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 261.80054, g: 324.32776, b: 429.24692, a: 1}
+  m_IndirectSpecularColor: {r: 262.38354, g: 325.1084, b: 430.30957, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2924,23 +2924,23 @@ MonoBehaviour:
   - _ishad: 0
     _print_Id: 3
     _tag_Ids: 000000000100000005000000050000000c000000
-    _t: {fileID: 6918954641851045129, guid: d03f0554c81462849a024b91a0fdbd5e, type: 3}
+    _t: {fileID: 6918954641851045129, guid: f215dd808d6121b4787c24afc09a6e35, type: 3}
   - _ishad: 0
     _print_Id: 4
     _tag_Ids: 0000000001000000010000000c0000000c000000
-    _t: {fileID: 6918954641851045129, guid: d03f0554c81462849a024b91a0fdbd5e, type: 3}
+    _t: {fileID: 6918954641851045129, guid: fb0339867eeed524983aac9b338c8f0b, type: 3}
   - _ishad: 0
     _print_Id: 5
     _tag_Ids: 0000000002000000030000000400000004000000
-    _t: {fileID: 6918954641851045129, guid: d03f0554c81462849a024b91a0fdbd5e, type: 3}
+    _t: {fileID: 6918954641851045129, guid: 3faca8524149743418bddcba55e881d0, type: 3}
   - _ishad: 0
     _print_Id: 6
     _tag_Ids: 000000000200000003000000030000000a000000
-    _t: {fileID: 6918954641851045129, guid: d03f0554c81462849a024b91a0fdbd5e, type: 3}
+    _t: {fileID: 6918954641851045129, guid: 6f805f2294037f94594b4e05b3fac4f1, type: 3}
   - _ishad: 0
     _print_Id: 7
     _tag_Ids: 000000000a0000000b0000000b0000000b000000
-    _t: {fileID: 6918954641851045129, guid: d03f0554c81462849a024b91a0fdbd5e, type: 3}
+    _t: {fileID: 6918954641851045129, guid: f272521b4c50c5a438a798be7bdd5f40, type: 3}
   client_GO: {fileID: 1736686426}
   client_SR: {fileID: 1736686427}
   talk_Ballon_SR: {fileID: 1696489893}

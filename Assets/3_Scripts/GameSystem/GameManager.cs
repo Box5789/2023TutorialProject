@@ -22,7 +22,7 @@ public class Request
 {
     [SerializeField] private int _color_Id;
     public int color_Id { get { return _color_Id; } set { if (value < 0) _color_Id = 0; else _color_Id = value; } }
-
+    
     [SerializeField] private int _tag_Id;
     public int tag_Id { get { return _tag_Id; } set { if (value < 0) _tag_Id = 0; else _tag_Id = value; } }
 
@@ -51,7 +51,7 @@ public class Blueprint
 }
 
 [Serializable]
-public class FireCracker
+public class FireCracker 
 {
     [SerializeField] private int _color_Id_1;
     public int color_Id_1 { get { return _color_Id_1; } set { if (value < 0) _color_Id_1 = 0; else _color_Id_1 = value; } }
