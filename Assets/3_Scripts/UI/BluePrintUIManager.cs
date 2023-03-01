@@ -31,10 +31,6 @@ public class BluePrintUIManager : MonoBehaviour
             //transform.GetChild(i).gameObject.SetActive(true);
         }
 
-        for (int i = 0; i < blueprints_Num; i++)
-        {
-            blueprint_bt_go_s[i] = transform.GetChild(i).gameObject;
-        }
         LoadUI();
     }
 

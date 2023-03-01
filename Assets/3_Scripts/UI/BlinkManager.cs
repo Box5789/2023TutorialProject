@@ -61,8 +61,8 @@ public class BlinkManager : MonoBehaviour
     {   
         if(coroutine != null)
         {
-            image.color = new Color(1f, 1f, 1f, 1f);
             StopCoroutine(coroutine);
+            image.color = new Color(1f, 1f, 1f, 1f);
             coroutine = null;
         }
 

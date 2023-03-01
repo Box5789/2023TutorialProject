@@ -112,6 +112,9 @@ public class GameManager : MonoBehaviour
     [Header("Make_Get_BluePrint_Bt")]
     [SerializeField] private GameObject[] buttons_GO;
 
+    [Header("TextUI")]
+    [SerializeField] private TextMeshProUGUI tm;
+
     private void Awake()
     {
         init();
@@ -193,12 +196,13 @@ public class GameManager : MonoBehaviour
     #region Submit and Check
     public void Check_At_Submit()
     {
+        if (gameState != GameState.open_underRequest)
+            return;
+
         bool isMet = true;
 
-        //조건 : 조합된 색이든 포함이 되어있든 둘 중 하나만 만족하면 됨
-        if (present_Request.color_Id == Find_Color_Id(crafted_FireCracker.color_Id_1, crafted_FireCracker.color_Id_2) ||
-            present_Request.color_Id == crafted_FireCracker.color_Id_1 ||
-            present_Request.color_Id == crafted_FireCracker.color_Id_2)
+        //조건 : 조합된 색이 맞아야함
+        if (present_Request.color_Id == Find_Color_Id(crafted_FireCracker.color_Id_1, crafted_FireCracker.color_Id_2))
         {
             //색 맞추기 성공~
         }
@@ -232,6 +236,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("만족 :(");
             have_Gold++;
+            tm.text = "" + have_Gold;
         }
         else
         {
@@ -258,15 +263,19 @@ public class GameManager : MonoBehaviour
     public void Get_Blueprint() //UI에서 획득 버튼들이 공통으로 참조하는(add)
     {
         isExisted = false;
-        StartCoroutine(Button_OnOff(isExisted, eventUI_Id));
-        eventUI_Id = -1; // 없음.
-        Get_Rand_Print_Not_Have();
+        if (eventUI_Id != -1)
+        {
+            Debug.Log(eventUI_Id);
+            StartCoroutine(Button_OnOff(isExisted, eventUI_Id));
+            eventUI_Id = -1; // 없음.
+            Get_Rand_Print_Not_Have();
+        }
     }
 
     private void Get_Rand_Print_Not_Have()
     {
         List<int> temp = new List<int>();
-        int r;
+        int index;
 
         for (int i = 0; i < 8; i++)
         {
@@ -275,18 +284,19 @@ public class GameManager : MonoBehaviour
 
         do
         {
-            r = UnityEngine.Random.Range(0, temp.Count);
-            if (!blueprints_Database[temp[r]].ishad)
+            index = UnityEngine.Random.Range(0, temp.Count);
+            if (!blueprints_Database[temp[index]].ishad)
             {
                 break;
             }
             else
             {
-                temp.RemoveAt(r);
+                temp.RemoveAt(index);
             }
         } while (temp.Count!=0);
 
-        blueprints_Database[temp[r]].ishad = true;
+        Debug.Log(temp[index]);
+        blueprints_Database[temp[index]].ishad = true;
     }
 
     WaitForSeconds WFS_20sec = new WaitForSeconds(20.0f);
@@ -329,7 +339,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            yield return WFS_FDT;
             yield return WFS_FDT;
             temp = 2.0f;
             while (temp > 0.0f)
@@ -583,17 +592,17 @@ public class GameManager : MonoBehaviour
 
         if (i == j) //
             temp = i;
-        else if (i == 0 && j == 1)
+        else if ((i == 0 && j == 1) || (i == 1 && j == 0))
             temp = 4;
-        else if (i == 0 && j == 2)
+        else if ((i == 0 && j == 2) || (i == 2 && j == 0))
             temp = 5;
-        else if (i == 0 && j == 3)
+        else if ((i == 0 && j == 3) || (i == 3 && j == 0))
             temp = 6;
-        else if (i == 1 && j == 2)
+        else if ((i == 1 && j == 2) || (i == 2 && j == 1))
             temp = 7;
-        else if (i == 1 && j == 3)
+        else if ((i == 1 && j == 3) || (i == 3 && j == 1))
             temp = 8;
-        else if (i == 2 && j == 3)
+        else if ((i == 2 && j == 3) || (i == 3 && j == 2))
             temp = 9;
 
         return temp;
