@@ -13,7 +13,6 @@ public class BluePrintUIManager : MonoBehaviour
     private int blueprints_view_length;
     //private int pointer;
     private Vector3[] pos_list;
-    public GameObject locked_prefab;
 
     public GameObject[] blueprint_bt_go_s = new GameObject[8];
     void Start()
@@ -24,12 +23,12 @@ public class BluePrintUIManager : MonoBehaviour
         player_had_list = new bool[8] { true, true, false, true, true, true, true, true};
         //pointer = 0;
         pos_list = new Vector3[blueprints_Num];
-        Vector3 first_pos = transform.GetChild(0).position;
-        for (int i = 0; i < blueprints_view_length; i++)
-        {
-            pos_list[i] = first_pos + new Vector3(73 * i, 0, 0);
-            //transform.GetChild(i).gameObject.SetActive(true);
-        }
+        //Vector3 first_pos = transform.GetChild(0).position;
+        //for (int i = 0; i < blueprints_view_length; i++)
+        //{
+        //    pos_list[i] = first_pos + new Vector3(73 * i, 0, 0);
+        //    //transform.GetChild(i).gameObject.SetActive(true);
+        //}
 
         LoadUI();
     }
@@ -40,17 +39,22 @@ public class BluePrintUIManager : MonoBehaviour
         {
             player_had_list = gameManager.Have_Bp();
         }
-        for (int i = 0; i < blueprints_Num; i++) {
-            if (player_had_list[i] == false)
-            {
-                Locked(blueprint_bt_go_s[i]);
-            }
+        for (int i = 0; i < blueprints_Num; i++)
+        {
+            //Locked(blueprint_bt_go_s[i]);
+            blueprint_bt_go_s[i].transform.GetChild(1).gameObject.SetActive(!player_had_list[i]);
+                //transform.GetChild(i).GetChild(1).gameObject.SetActive(player_had_list[i]);
         }
     }
-    public void Locked(GameObject go)
-    {
-        GameObject locked = Instantiate(locked_prefab, go.transform);
-        locked.transform.position = go.transform.position;
-    }
+    //public void Locked(GameObject go)
+    //{
+    //    GameObject locked = Instantiate(locked_prefab, go.transform);
+    //    locked.transform.position = go.transform.position;
+    //}
+    //public void UnLocked(GameObject go)
+    //{
+    //    GameObject locked = Instantiate(locked_prefab, go.transform);
+    //    locked.transform.position = go.transform.position;
+    //}
 }
 

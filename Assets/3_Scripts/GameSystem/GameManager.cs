@@ -265,7 +265,6 @@ public class GameManager : MonoBehaviour
         isExisted = false;
         if (eventUI_Id != -1)
         {
-            Debug.Log(eventUI_Id);
             StartCoroutine(Button_OnOff(isExisted, eventUI_Id));
             eventUI_Id = -1; // ¾øÀ½.
             Get_Rand_Print_Not_Have();
@@ -537,7 +536,7 @@ public class GameManager : MonoBehaviour
         r1 = UnityEngine.Random.Range(0, temp.Count);
         r2 = UnityEngine.Random.Range(0, 5);
         
-        return blueprints_Database[r1].tag_Id[r2];
+        return temp[r1].tag_Id[r2];
     }
 
     private bool Does_Have_All_BP()
