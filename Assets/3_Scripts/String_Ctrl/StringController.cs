@@ -17,13 +17,12 @@ public class StringController : MonoBehaviour
         //color_name_list = new string[] { "a0", "a1", "a2", "a3" };
         //shape_name_list = new string[] { "b0", "b1", "b2", "b3" };
         string_list = new string[10];
-        path = @"./Assets/3_Scripts/String_Ctrl/request.txt";
-        shape_path = @"./Assets/3_Scripts/String_Ctrl/Id.txt";
-        color_path = @"./Assets/3_Scripts/String_Ctrl/color.txt";
+        path = Application.streamingAssetsPath + "/request.txt";
+        shape_path = Application.streamingAssetsPath + "/Id.txt";
+        color_path = Application.streamingAssetsPath + "/color.txt";
         textValue = System.IO.File.ReadAllText(path);
         shape_name_list = System.IO.File.ReadAllText(shape_path).Split('\n');
         color_name_list = System.IO.File.ReadAllText(color_path).Split('\n');
-        //textValue = "나는 A색의 B모양 불꽃이 좋아.\n나는 겨울과 같은 B모양의 A색이 더 좋아.";
         string_list = textValue.Split('\n');
         //GetOrder();
     }

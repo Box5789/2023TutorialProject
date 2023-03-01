@@ -14,9 +14,9 @@ public class MakingFirecrack : MonoBehaviour
     [SerializeField]
     private GameManager gameManager;
 
-    private int color_id_1;
-    private int color_id_2;
-    private float transparency; 
+    [SerializeField] private int color_id_1;
+    [SerializeField] private int color_id_2;
+    private float transparency = 0.8f; 
     private int bp;
     //private bool is_gradation;
     //private int particle_id;
@@ -41,7 +41,6 @@ public class MakingFirecrack : MonoBehaviour
     public void SetColorId2(int _color_id_2) { color_id_2 = _color_id_2; }
     public void SetTransparency(Slider s) { 
         transparency = s.value;
-        Debug.Log(transparency);
     }
     //public void SetIsGradation(bool _is_gradation) { is_gradation = _is_gradation; }
     //public void SetIsParticleId(int _particle_id) { particle_id = _particle_id; }
