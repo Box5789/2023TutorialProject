@@ -115,12 +115,16 @@ public class GameManager : MonoBehaviour
     [Header("TextUI")]
     [SerializeField] private TextMeshProUGUI tm;
 
+    [SerializeField] private GameObject notice_maker;
+    private NoticeMaker nm;
+
     private void Awake()
     {
         init();
 
         gameState = GameState.close_First;
         StartCoroutine(Make_Get_Blueprint_Event()); // 한번만 돌아가야함
+        nm = notice_maker.GetComponent<NoticeMaker>();
     }
 
     private void init()
@@ -234,13 +238,15 @@ public class GameManager : MonoBehaviour
 
         if (isMet)
         {
-            Debug.Log("만족 :(");
+            Debug.Log("만족 :)");
+            nm.Notice("Good :)");
             have_Gold++;
             tm.text = "" + have_Gold;
         }
         else
         {
             Debug.Log("불만족 :(");
+            nm.Notice("Bad :(");
         }
     }
 
@@ -295,6 +301,7 @@ public class GameManager : MonoBehaviour
         } while (temp.Count!=0);
 
         Debug.Log(temp[index]);
+        nm.Notice("You\'ve got Schematic "+temp[index].ToString()+"!");
         blueprints_Database[temp[index]].ishad = true;
     }
 
@@ -307,6 +314,7 @@ public class GameManager : MonoBehaviour
             if (Does_Have_All_BP())
             {
                 Debug.Log("모든 도면을 가지고 있습니다.");
+                nm.Notice("You had all blueprints.");
                 yield break;
             }
             if (!isExisted)
