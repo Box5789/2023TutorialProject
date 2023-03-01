@@ -41,3 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BackGround
+    uniqueID: 3639214125
+    locked: 0
+  - name: BackGround_Object
+    uniqueID: 3602991947
+    locked: 0
+  - name: Fireworks
+    uniqueID: 2806949553
+    locked: 0
+  - name: Client
+    uniqueID: 2257380411
+    locked: 0
+  - name: Object
+    uniqueID: 1484650747
+    locked: 0
