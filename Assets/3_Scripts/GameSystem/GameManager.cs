@@ -301,7 +301,8 @@ public class GameManager : MonoBehaviour
         } while (temp.Count!=0);
 
         Debug.Log(temp[index]);
-        nm.Notice("You\'ve got Schematic "+temp[index].ToString()+"!");
+        //nm.Notice("You\'ve got Schematic "+temp[index].ToString()+"!");
+        nm.BlueprintNotice(temp[index]);
         blueprints_Database[temp[index]].ishad = true;
     }
 

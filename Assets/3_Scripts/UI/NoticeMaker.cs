@@ -8,8 +8,11 @@ public class NoticeMaker : MonoBehaviour
 {
     [SerializeField] GameObject notice;
     [SerializeField] TextMeshProUGUI txt;
+    [SerializeField] GameObject blueprint_notices;
+    private int num;
     private void Awake()
     {
+        num = 0;
         notice.SetActive(false);
     }
     public void Notice(string s)
@@ -17,19 +20,27 @@ public class NoticeMaker : MonoBehaviour
         // s로 알림 만들기
         notice.SetActive(true);
         txt.text = s;
-
-        StartCoroutine(MakeNotice());
+        StartCoroutine(CloseNotice());
     }
-    IEnumerator MakeNotice()
+    IEnumerator CloseNotice()
     {
         yield return new WaitForSeconds(3);
         notice.SetActive(false);
-        //Color txt_color = notice.GetComponent<Image>().color;
-
-        //for(int i=0; i<10; i++)
-        //{
-            
-        //    yield return new WaitForSeconds(0.1f);
-        //}
     }
+    public void BlueprintNotice(int _num)
+    {
+        num = _num;
+        blueprint_notices.SetActive(true);
+        blueprint_notices.transform.GetChild(num).gameObject.SetActive(true);
+        StartCoroutine(CloseBlueprintNotice());
+    }
+    
+    IEnumerator CloseBlueprintNotice()
+    {
+        yield return new WaitForSeconds(3);
+        blueprint_notices.transform.GetChild(num).gameObject.SetActive(false);
+    }
+
+    
+
 }
