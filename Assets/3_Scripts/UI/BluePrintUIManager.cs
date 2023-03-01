@@ -3,19 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Blueprint_UI
-{
-    private int id;
-    private string name;
-    private bool is_activated;
-    private Sprite sprite;
-
-    public int GetId() { return id; }
-    public string GetName() { return name; }
-    public bool GetIsActivated() { return is_activated; }
-    public Sprite GetSprite() { return sprite; }
-
-}
 public class BluePrintUIManager : MonoBehaviour
 {
     [SerializeField] private GameManager gameManager;
@@ -24,7 +11,7 @@ public class BluePrintUIManager : MonoBehaviour
     //private Blueprint[] all_blueprints;
     private int blueprints_Num; // Set int type for test
     private int blueprints_view_length;
-    private int pointer;
+    //private int pointer;
     private Vector3[] pos_list;
     public GameObject locked_prefab;
 
@@ -35,7 +22,7 @@ public class BluePrintUIManager : MonoBehaviour
         blueprints_Num = 8;
 
         player_had_list = new bool[8] { true, true, false, true, true, true, true, true};
-        pointer = 0;
+        //pointer = 0;
         pos_list = new Vector3[blueprints_Num];
         Vector3 first_pos = transform.GetChild(0).position;
         for (int i = 0; i < blueprints_view_length; i++)

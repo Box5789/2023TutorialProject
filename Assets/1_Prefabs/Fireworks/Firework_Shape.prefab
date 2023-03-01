@@ -89,6 +89,16 @@ PrefabInstance:
       propertyPath: m_PropertySheet.m_NamedObject.m_Array.Array.data[1].m_Overridden
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4878460315055165340, guid: c0965399d23f12e4b9d845664e1ecc1b,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878460315055165340, guid: c0965399d23f12e4b9d845664e1ecc1b,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1488017743
+      objectReference: {fileID: 0}
     - target: {fileID: 4878460315055165341, guid: c0965399d23f12e4b9d845664e1ecc1b,
         type: 3}
       propertyPath: m_Name

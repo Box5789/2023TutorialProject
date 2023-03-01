@@ -17,9 +17,9 @@ public class StringController : MonoBehaviour
         //color_name_list = new string[] { "a0", "a1", "a2", "a3" };
         //shape_name_list = new string[] { "b0", "b1", "b2", "b3" };
         string_list = new string[10];
-        path = @"./Assets/Scripts/request.txt";
-        shape_path = @"./Assets/Scripts/Id.txt";
-        color_path = @"./Assets/Scripts/color.txt";
+        path = @"./Assets/3_Scripts/String_Ctrl/request.txt";
+        shape_path = @"./Assets/3_Scripts/String_Ctrl/Id.txt";
+        color_path = @"./Assets/3_Scripts/String_Ctrl/color.txt";
         textValue = System.IO.File.ReadAllText(path);
         shape_name_list = System.IO.File.ReadAllText(shape_path).Split('\n');
         color_name_list = System.IO.File.ReadAllText(color_path).Split('\n');
@@ -39,13 +39,11 @@ public class StringController : MonoBehaviour
             char c = string_list[sentence_type_id][i];
             if (c == 'A')
             {
-                //ans += color_name_list[color_id];
-                ans += color_name_list[color_id];
+                ans += shape_name_list[tag_id];
             }
             else if (c == 'B')
             {
-                //ans += shape_name_list[shape_id];
-                ans += shape_name_list[tag_id];
+                ans += color_name_list[color_id];
             }
             else
             {

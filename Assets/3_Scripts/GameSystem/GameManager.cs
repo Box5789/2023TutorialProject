@@ -45,6 +45,9 @@ public class Blueprint
 
     [SerializeField] private int[] _tag_Ids = new int[5];
     public int[] tag_Id { get { return _tag_Ids; } set { _tag_Ids = value; } }
+
+    [SerializeField] private Texture _t;
+    public Texture t { get { return _t; } set { _t = value; } }
 }
 
 [Serializable]
@@ -102,7 +105,8 @@ public class GameManager : MonoBehaviour
 
 
     [Header("Fireworks")]
-    [SerializeField] private VisualEffect visualEffect;
+    [SerializeField] private VisualEffect visualEffect_Basic;
+    [SerializeField] private VisualEffect visualEffect_Shape;
 
 
     [Header("Make_Get_BluePrint_Bt")]
@@ -389,31 +393,127 @@ public class GameManager : MonoBehaviour
 
         //visualEffect.SetFloat("");
         //apply gktpyd~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
         Gradient g;
         GradientColorKey[] gck;
         GradientAlphaKey[] gak;
         g = new Gradient();
         gck = new GradientColorKey[4];
-        gck[0].color = Find_Color(background_FireCracker.color_Id_1);
-        gck[0].time = 0.0F;
-        gck[1].color = Find_Color(Find_Color_Id(background_FireCracker.color_Id_1, background_FireCracker.color_Id_2));
-        gck[1].time = 0.1F;
-        gck[2].color = Find_Color(Find_Color_Id(background_FireCracker.color_Id_1, background_FireCracker.color_Id_2));
-        gck[2].time = 0.9F;
-        gck[3].color = Find_Color(background_FireCracker.color_Id_2);
-        gck[3].time = 1.0F;
-        gak = new GradientAlphaKey[2];
-        gak[0].alpha = background_FireCracker.transparency;
-        gak[0].time = 0.0F;
-        gak[1].alpha = background_FireCracker.transparency;
-        gak[1].time = 1.0F;
-        g.SetKeys(gck, gak);
 
-        visualEffect.SetGradient("Gradiant", g);
+        if (background_FireCracker.bp_Id == 0)
+        {
+            Switching_Firework(true);
+
+            gck[0].color = Find_Color(background_FireCracker.color_Id_1);
+            gck[0].time = 0.0F;
+            gck[1].color = Find_Color(Find_Color_Id(background_FireCracker.color_Id_1, background_FireCracker.color_Id_2));
+            gck[1].time = 0.1F;
+            gck[2].color = Find_Color(Find_Color_Id(background_FireCracker.color_Id_1, background_FireCracker.color_Id_2));
+            gck[2].time = 0.9F;
+            gck[3].color = Find_Color(background_FireCracker.color_Id_2);
+            gck[3].time = 1.0F;
+            gak = new GradientAlphaKey[2];
+            gak[0].alpha = background_FireCracker.transparency;
+            gak[0].time = 0.0F;
+            gak[1].alpha = background_FireCracker.transparency;
+            gak[1].time = 1.0F;
+            g.SetKeys(gck, gak);
+
+
+            visualEffect_Basic.SetInt("Amount", 200);
+            visualEffect_Basic.SetGradient("Gradiant", g);
+            
+            visualEffect_Basic.SetInt("Amount 1", 0);
+        }
+        else if(background_FireCracker.bp_Id == 1)
+        {
+            Switching_Firework(true);
+
+            gck[0].color = Find_Color(Find_Color_Id(background_FireCracker.color_Id_1, background_FireCracker.color_Id_2));
+            gck[0].time = 0.0F;
+            gck[1].color = Find_Color(background_FireCracker.color_Id_1);
+            gck[1].time = 0.1F;
+            gck[2].color = Find_Color(background_FireCracker.color_Id_2);
+            gck[2].time = 0.9F;
+            gck[3].color = Find_Color(Find_Color_Id(background_FireCracker.color_Id_1, background_FireCracker.color_Id_2));
+            gck[3].time = 1.0F;
+            gak = new GradientAlphaKey[2];
+            gak[0].alpha = background_FireCracker.transparency;
+            gak[0].time = 0.0F;
+            gak[1].alpha = background_FireCracker.transparency;
+            gak[1].time = 1.0F;
+            g.SetKeys(gck, gak);
+
+            visualEffect_Basic.SetInt("Amount", 150);
+            visualEffect_Basic.SetGradient("Gradiant", g);
+
+            gck[0].color = Find_Color(background_FireCracker.color_Id_1);
+            gck[0].time = 0.0F;
+            gck[1].color = Find_Color(Find_Color_Id(background_FireCracker.color_Id_1, background_FireCracker.color_Id_2));
+            gck[1].time = 0.1F;
+            gck[2].color = Find_Color(Find_Color_Id(background_FireCracker.color_Id_1, background_FireCracker.color_Id_2));
+            gck[2].time = 0.9F;
+            gck[3].color = Find_Color(background_FireCracker.color_Id_2);
+            gck[3].time = 1.0F;
+            gak = new GradientAlphaKey[2];
+            gak[0].alpha = background_FireCracker.transparency;
+            gak[0].time = 0.0F;
+            gak[1].alpha = background_FireCracker.transparency;
+            gak[1].time = 1.0F;
+            g.SetKeys(gck, gak);
+
+            visualEffect_Basic.SetInt("Amount 1", 3);
+            visualEffect_Basic.SetGradient("Gradiant 1", g);
+        }
+        else
+        {
+            Switching_Firework(false);
+
+            gck[0].color = Find_Color(background_FireCracker.color_Id_1);
+            gck[0].time = 0.0F;
+            gck[1].color = Find_Color(Find_Color_Id(background_FireCracker.color_Id_1, background_FireCracker.color_Id_2));
+            gck[1].time = 0.1F;
+            gck[2].color = Find_Color(Find_Color_Id(background_FireCracker.color_Id_1, background_FireCracker.color_Id_2));
+            gck[2].time = 0.9F;
+            gck[3].color = Find_Color(background_FireCracker.color_Id_2);
+            gck[3].time = 1.0F;
+            gak = new GradientAlphaKey[2];
+            gak[0].alpha = background_FireCracker.transparency;
+            gak[0].time = 0.0F;
+            gak[1].alpha = background_FireCracker.transparency;
+            gak[1].time = 1.0F;
+            g.SetKeys(gck, gak);
+
+
+
+            visualEffect_Shape.SetTexture("Shape", blueprints_Database[background_FireCracker.bp_Id].t);
+            visualEffect_Shape.SetInt("Amount", 300);
+            visualEffect_Shape.SetFloat("Scale", 30);
+            visualEffect_Shape.SetGradient("Gradiant", g);
+
+            visualEffect_Shape.SetInt("Amount 1", 0);
+        }
+        
+        
+        
 
 
     }
+
+
+    private void Switching_Firework(bool isBasic)
+    {
+        if (isBasic)
+        {
+            visualEffect_Basic.enabled = true;
+            visualEffect_Shape.enabled = false;
+        }
+        else
+        {
+            visualEffect_Basic.enabled = false;
+            visualEffect_Shape.enabled = true;
+        }
+    }
+
 
     private int Get_Rand_Tag_Among_Have()
     {
