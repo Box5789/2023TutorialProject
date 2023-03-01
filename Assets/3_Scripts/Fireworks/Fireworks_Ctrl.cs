@@ -12,7 +12,6 @@ public class Fireworks_Ctrl : MonoBehaviour
     [SerializeField] private Firework firwork_Basic_1;
     [SerializeField] private Firework firwork_Basic_2;
     [SerializeField] private Firework firwork_Basic_3;
-
     [SerializeField] private VisualEffect visualEffect_Basic_1;
     [SerializeField] private VisualEffect visualEffect_Basic_2;
     [SerializeField] private VisualEffect visualEffect_Basic_3;
@@ -35,6 +34,7 @@ public class Fireworks_Ctrl : MonoBehaviour
         firwork_Shape_1.Shoot();
         firwork_Shape_2.Shoot();
         firwork_Shape_3.Shoot();
+        Switching_Fireworks(true);
     }
 
 
@@ -43,9 +43,9 @@ public class Fireworks_Ctrl : MonoBehaviour
         go_firwork_Basic_1.SetActive(isBasic);
         go_firwork_Basic_2.SetActive(isBasic);
         go_firwork_Basic_3.SetActive(isBasic);
-        go_firwork_Shape_1.SetActive(isBasic);
-        go_firwork_Shape_2.SetActive(isBasic);
-        go_firwork_Shape_3.SetActive(isBasic);
+        go_firwork_Shape_1.SetActive(!isBasic);
+        go_firwork_Shape_2.SetActive(!isBasic);
+        go_firwork_Shape_3.SetActive(!isBasic);
     }
 
     public void Applying(int amount, Gradient g, int amount1)

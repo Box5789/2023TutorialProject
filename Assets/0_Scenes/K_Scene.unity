@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 262.38354, g: 325.1084, b: 430.30957, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2697,7 +2697,7 @@ PrefabInstance:
     - target: {fileID: 6228091422648509455, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6228091422648509455, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
@@ -2823,7 +2823,7 @@ PrefabInstance:
     - target: {fileID: 6228091422648509456, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6228091422648509456, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
@@ -2839,6 +2839,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Firework_Shape (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6228091422648509457, guid: bad7dd47cebf995438c63ffdca0e0a9e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bad7dd47cebf995438c63ffdca0e0a9e, type: 3}
@@ -4931,7 +4936,7 @@ PrefabInstance:
     - target: {fileID: 6228091422648509455, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6228091422648509455, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
@@ -5057,7 +5062,7 @@ PrefabInstance:
     - target: {fileID: 6228091422648509456, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6228091422648509456, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
@@ -5073,6 +5078,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Firework_Shape
+      objectReference: {fileID: 0}
+    - target: {fileID: 6228091422648509457, guid: bad7dd47cebf995438c63ffdca0e0a9e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bad7dd47cebf995438c63ffdca0e0a9e, type: 3}
@@ -7531,7 +7541,7 @@ PrefabInstance:
     - target: {fileID: 6228091422648509455, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6228091422648509455, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
@@ -7657,7 +7667,7 @@ PrefabInstance:
     - target: {fileID: 6228091422648509456, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6228091422648509456, guid: bad7dd47cebf995438c63ffdca0e0a9e,
         type: 3}
@@ -7673,6 +7683,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Firework_Shape (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6228091422648509457, guid: bad7dd47cebf995438c63ffdca0e0a9e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bad7dd47cebf995438c63ffdca0e0a9e, type: 3}

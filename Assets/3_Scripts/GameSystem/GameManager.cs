@@ -470,7 +470,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            fireworks_Ctrl.Switching_Fireworks(true);
+            fireworks_Ctrl.Switching_Fireworks(false);
 
             gck[0].color = Find_Color(background_FireCracker.color_Id_1);
             gck[0].time = 0.0F;
