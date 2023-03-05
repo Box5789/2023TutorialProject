@@ -27,6 +27,7 @@ public class Fireworks_Ctrl : MonoBehaviour
     [SerializeField] private VisualEffect visualEffect_Shape_3;
 
     private Queue<GameObject> fireworks=new Queue<GameObject>();
+    [SerializeField] private int fire_num=0;
 
     private void OnEnable()
     {
@@ -75,7 +76,8 @@ public class Fireworks_Ctrl : MonoBehaviour
 
 
         GameObject tmp;
-        switch (fireworks.Count % 3)
+        //switch (fireworks.Count % 3)
+        switch (fire_num % 3)
         {
             case 0:
                 tmp = Instantiate<GameObject>(visualEffect_Basic_1.gameObject, this.transform);
@@ -90,6 +92,7 @@ public class Fireworks_Ctrl : MonoBehaviour
 
         }
         fireworks.Enqueue(tmp);
+        fire_num++;
         tmp.SetActive(true);
         if (fireworks.Count > 3)
         {
@@ -115,7 +118,7 @@ public class Fireworks_Ctrl : MonoBehaviour
         visualEffect_Basic_3.SetInt("Amount 1", amount1);
         visualEffect_Basic_3.SetGradient("Gradiant 1", g2);
         GameObject tmp;
-        switch (fireworks.Count%3)
+        switch (fire_num%3)
         {
             case 0:
                  tmp = Instantiate<GameObject>(visualEffect_Basic_1.gameObject, this.transform);
@@ -130,6 +133,7 @@ public class Fireworks_Ctrl : MonoBehaviour
 
         }
         fireworks.Enqueue(tmp);
+        fire_num++;
         tmp.SetActive(true);
         if (fireworks.Count > 3)
         {
@@ -160,7 +164,7 @@ public class Fireworks_Ctrl : MonoBehaviour
         visualEffect_Shape_3.SetInt("Amount 1", amount1);
 
         GameObject tmp;
-        switch (fireworks.Count % 3)
+        switch (fire_num % 3)
         {
             case 0:
                 tmp = Instantiate<GameObject>(visualEffect_Shape_1.gameObject, this.transform);
@@ -175,6 +179,7 @@ public class Fireworks_Ctrl : MonoBehaviour
 
         }
         fireworks.Enqueue(tmp);
+        fire_num++;
         tmp.SetActive(true);
         if (fireworks.Count > 3)
         {
