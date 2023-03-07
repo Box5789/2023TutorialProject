@@ -18,9 +18,9 @@ public class BluePrintUIManager : MonoBehaviour
     void Start()
     {
         blueprints_view_length = 4;
-        blueprints_Num = 8;
+        blueprints_Num = 14;
 
-        player_had_list = new bool[8] { true, true, false, true, true, true, true, true};
+        player_had_list = new bool[14];
         //pointer = 0;
         pos_list = new Vector3[blueprints_Num];
         //Vector3 first_pos = transform.GetChild(0).position;

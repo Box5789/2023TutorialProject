@@ -276,7 +276,7 @@ public class GameManager : MonoBehaviour
         List<int> temp = new List<int>();
         int index;
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < blueprints_Database.Count; i++)
         {
             temp.Add(i);
         }
@@ -294,7 +294,7 @@ public class GameManager : MonoBehaviour
             }
         } while (temp.Count!=0);
 
-        Debug.Log(temp[index]);
+        //Debug.Log(temp[index]);
         //nm.Notice("You\'ve got Schematic "+temp[index].ToString()+"!");
         nm.BlueprintNotice(temp[index]);
         blueprints_Database[temp[index]].ishad = true;
@@ -497,7 +497,7 @@ public class GameManager : MonoBehaviour
 
             g1.SetKeys(gck, gak);
 
-            fireworks_Ctrl.Applying(blueprints_Database[background_FireCracker.bp_Id].t, 300, 30.0f, g1, 0);
+            fireworks_Ctrl.Applying(blueprints_Database[background_FireCracker.bp_Id].t, 300, 40.0f, g1, 0);
         }
     }
 
@@ -520,7 +520,7 @@ public class GameManager : MonoBehaviour
 
     private bool Does_Have_All_BP()
     {
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < blueprints_Database.Count; i++)
         {
             if (blueprints_Database[i].ishad == false)
             {
@@ -532,8 +532,8 @@ public class GameManager : MonoBehaviour
 
     public bool[] Have_Bp()
     {
-        bool[] b = new bool[8];
-        for (int i = 0; i < 8; i++)
+        bool[] b = new bool[blueprints_Database.Count];
+        for (int i = 0; i < blueprints_Database.Count; i++)
         {
             b[i] = blueprints_Database[i].ishad;
         }
