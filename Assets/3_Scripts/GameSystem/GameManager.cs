@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject client_GO;
     [SerializeField] private SpriteRenderer client_SR;
     [SerializeField] private SpriteRenderer talk_Ballon_SR;
-    [SerializeField] private TextMeshPro request_Text;
+    [SerializeField] private TMP_Text request_Text;
 
     [Header("Make_Get_BluePrint_Bt")]
     [SerializeField] private GameObject[] buttons_GO;
