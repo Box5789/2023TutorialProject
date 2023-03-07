@@ -497,7 +497,7 @@ public class GameManager : MonoBehaviour
 
             g1.SetKeys(gck, gak);
 
-            fireworks_Ctrl.Applying(blueprints_Database[background_FireCracker.bp_Id].t, 300, 40.0f, g1, 0);
+            fireworks_Ctrl.Applying(blueprints_Database[background_FireCracker.bp_Id].t, 400, 40.0f, g1, 0);
         }
     }
 
