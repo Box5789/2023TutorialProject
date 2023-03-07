@@ -365,8 +365,12 @@ public class GameManager : MonoBehaviour
         if (isAppearing)
         {
             client_GO.SetActive(true);
+            client_GO.GetComponent<Animation>().Play("BlendIn");
+            talk_Ballon_SR.gameObject.GetComponent<Animation>().Play("BlendIn");
+            request_Text.GetComponent<Animation>().Play("BlendIn");
 
             temp = 0.0f;
+            /*
 
             while (temp < time)
             {
@@ -377,10 +381,17 @@ public class GameManager : MonoBehaviour
 
                 yield return WFS_FDT;
             }
+            */
+            //yield return WFS_FDT;
+            yield return new WaitForSeconds(4f);
         }
         else
         {
+            client_GO.GetComponent<Animation>().Play("BlendOut");
+            talk_Ballon_SR.gameObject.GetComponent<Animation>().Play("BlendOut");
+            request_Text.GetComponent<Animation>().Play("BlendOut");
             temp = 4.0f;
+            /*
 
             while (temp > 0.0f)
             {
@@ -391,9 +402,14 @@ public class GameManager : MonoBehaviour
 
                 yield return WFS_FDT;
             }
-
+            */
+            
+            yield return WFS_FDT;
+            yield return new WaitForSeconds(4f);
             client_GO.SetActive(false);
         }
+
+        yield return null;
 
 
     }

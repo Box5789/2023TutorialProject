@@ -31,21 +31,30 @@ public class BlinkManager : MonoBehaviour
 
     private IEnumerator Change_Transperency()
     {
-        yield return WFS_2sec;
-        yield return WFS_FDT;
-        yield return WFS_FDT;
+        GetComponent<Animation>().Play("BlendIn");
+        yield return new WaitForSeconds(1f);
+        GetComponent<Animation>().Play("Blink");
 
-        float time = 1.0f;
-        float temp;
+        //yield return WFS_2sec;
+        //yield return WFS_FDT;
+        //yield return WFS_FDT;
+
+        //float time = 1.0f;
+        //float temp;
+        /*
+        
         while (true) 
         {
             temp = 1.0f;
+            
             while (temp > 0.0f)
             {
                 temp -= Time.fixedDeltaTime;
                 image.color = new Color(1f, 1f, 1f, temp / time * 0.6f + 0.4f);
                 yield return WFS_FDT;
             }
+            
+            
             temp = 0.0f;
             while (temp < time)
             {
@@ -54,6 +63,7 @@ public class BlinkManager : MonoBehaviour
                 yield return WFS_FDT;
             }
         }
+        */
 
     }
 
@@ -62,6 +72,7 @@ public class BlinkManager : MonoBehaviour
         if(coroutine != null)
         {
             StopCoroutine(coroutine);
+            GetComponent<Animation>().Stop();
             image.color = new Color(1f, 1f, 1f, 1f);
             coroutine = null;
         }
