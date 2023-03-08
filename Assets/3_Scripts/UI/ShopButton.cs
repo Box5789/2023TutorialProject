@@ -4,8 +4,4 @@ using UnityEngine;
 
 public class ShopButton : MonoBehaviour
 {
-    public void BuyBlueprint(int id, float price)
-    {
-        
-    }
 }

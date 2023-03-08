@@ -9,6 +9,7 @@ public class BuyManager : MonoBehaviour
     public void SetId(int _id)
     {
         id = _id;
+        Debug.Log(id.ToString() + "번으로 구매 목록 설정");
     }
     public void BuyBlueprint()
     {

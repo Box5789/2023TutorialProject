@@ -286,6 +286,7 @@ public class GameManager : MonoBehaviour
                 have_Gold -= price; 
                 nm.Notice("You got blueprint " + id.ToString());
                 Debug.Log(id.ToString() + "번 설계도 구매!");
+                tm.text = "" + have_Gold;
             }
         }
         else

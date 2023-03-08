@@ -6,27 +6,21 @@ using TMPro;
 
 public class NoticeMaker : MonoBehaviour
 {
-    [SerializeField] GameObject notice;
+    [SerializeField] GameObject notice_prefab;
     [SerializeField] TextMeshProUGUI txt;
     [SerializeField] GameObject blueprint_notices;
     private int num;
     private void Awake()
     {
         num = 0;
-        notice.SetActive(false);
     }
     public void Notice(string s)
     {
         // s로 알림 만들기
-        notice.SetActive(true);
-        txt.text = s;
-        StartCoroutine(CloseNotice());
+        GameObject n = Instantiate(notice_prefab,gameObject.transform);
+        n.GetComponent<NoticeScript>().ShowNotice(s);
     }
-    IEnumerator CloseNotice()
-    {
-        yield return new WaitForSeconds(3);
-        notice.SetActive(false);
-    }
+    
     public void BlueprintNotice(int _num)
     {
         num = _num;
