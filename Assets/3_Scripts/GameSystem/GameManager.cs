@@ -270,6 +270,30 @@ public class GameManager : MonoBehaviour
             Get_Rand_Print_Not_Have();
         }
     }
+    public void BuyBlueprint(int id)
+    {
+        int price = 1;
+        if (have_Gold >= price)
+        {
+            if (blueprints_Database[id].ishad)
+            {
+                nm.Notice("You already have this blueprint!");
+                Debug.Log("이미 갖고 있는 상품입니다");
+            }
+            else
+            {
+                blueprints_Database[id].ishad = true;
+                have_Gold -= price; 
+                nm.Notice("You got blueprint " + id.ToString());
+                Debug.Log(id.ToString() + "번 설계도 구매!");
+            }
+        }
+        else
+        {
+            nm.Notice("You don\'t have enough gold :(");
+            Debug.Log("돈 부족!!");
+        }
+    }
 
     private void Get_Rand_Print_Not_Have()
     {
@@ -292,7 +316,7 @@ public class GameManager : MonoBehaviour
             {
                 temp.RemoveAt(index);
             }
-        } while (temp.Count!=0);
+        } while (temp.Count != 0);
 
         //Debug.Log(temp[index]);
         //nm.Notice("You\'ve got Schematic "+temp[index].ToString()+"!");
@@ -327,8 +351,8 @@ public class GameManager : MonoBehaviour
         float time = 2.0f;
         float temp = 0.0f;
 
-        Image image= buttons_GO[index].GetComponent<Image>();
-        
+        Image image = buttons_GO[index].GetComponent<Image>();
+
         if (on)
         {
             buttons_GO[index].SetActive(on);
@@ -437,7 +461,7 @@ public class GameManager : MonoBehaviour
 
             fireworks_Ctrl.Applying(200, g1, 0);
         }
-        else if(background_FireCracker.bp_Id == 1)
+        else if (background_FireCracker.bp_Id == 1)
         {
             fireworks_Ctrl.Switching_Fireworks(true);
 
@@ -514,7 +538,7 @@ public class GameManager : MonoBehaviour
         }
         r1 = UnityEngine.Random.Range(0, temp.Count);
         r2 = UnityEngine.Random.Range(0, 5);
-        
+
         return temp[r1].tag_Id[r2];
     }
 
@@ -542,8 +566,8 @@ public class GameManager : MonoBehaviour
 
     private bool Find_Tag_Id(int tag_Id, int bp_Id)
     {
-        for (int i=0;i< 5;i++)
-        {            
+        for (int i = 0; i < 5; i++)
+        {
             if (blueprints_Database[bp_Id].tag_Id[i] == tag_Id)
             {
                 return true;
@@ -610,7 +634,7 @@ public class GameManager : MonoBehaviour
                 break;
             case 1:
                 //c = Color.blue;
-                c = new Color( 0.0f , 12/255f , 1.0f);
+                c = new Color(0.0f, 12 / 255f, 1.0f);
                 break;
             case 2:
                 c = Color.yellow;
