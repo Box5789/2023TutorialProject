@@ -277,14 +277,14 @@ public class GameManager : MonoBehaviour
         {
             if (blueprints_Database[id].ishad)
             {
-                nm.Notice("You already have this blueprint!");
+                nm.Notice("You already have this blueprint :)");
                 Debug.Log("이미 갖고 있는 상품입니다");
             }
             else
             {
                 blueprints_Database[id].ishad = true;
                 have_Gold -= price; 
-                nm.Notice("You got blueprint " + id.ToString());
+                nm.Notice("Now you can use blueprint " + id.ToString() + "!");
                 Debug.Log(id.ToString() + "번 설계도 구매!");
                 tm.text = "" + have_Gold;
             }
